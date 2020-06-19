@@ -170,6 +170,43 @@ def atalanta_wcba(handle):
     return None
 
 
+def charlotte(handle):
+    """battle in charlotte to get dust"""
+    # first map
+    basic_function.press_keyboard(handle, button_dict['A'], 3)
+    basic_function.press_keyboard(handle, button_dict['B'], 3)
+    basic_function.press_keyboard(handle, button_dict['F'], 3)
+    basic_function.press_keyboard(handle, button_dict['J'], 3)
+    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
+    rand_card(handle)
+    time.sleep(24)
+
+    # second map
+    basic_function.press_keyboard(handle, button_dict['C'], 3)
+    basic_function.press_keyboard(handle, button_dict['G'], 0.5)
+    basic_function.press_keyboard(handle, button_dict['O'], 3)
+    basic_function.press_keyboard(handle, button_dict['H'], 3)
+    basic_function.press_keyboard(handle, button_dict['I'], 3)
+    basic_function.press_keyboard(handle, button_dict['J'], 3)
+    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
+    rand_card(handle)
+    time.sleep(24)
+
+    # third map
+    basic_function.press_keyboard(handle, button_dict['D'], 3)
+    basic_function.press_keyboard(handle, button_dict['S'], 0.5)
+    basic_function.press_keyboard(handle, button_dict['U'], 0.5)
+    basic_function.press_keyboard(handle, button_dict['P'], 3)
+    basic_function.press_keyboard(handle, button_dict['J'], 3)
+    basic_function.press_keyboard(handle, button_dict['L'], 0.5)
+    rand_card(handle)
+    time.sleep(22)
+    for i in range(5):
+        basic_function.press_keyboard(handle, button_dict['4'], 1)
+    print('battle finish')
+    return None
+
+
 def check_apple(handle, width, height):
     """check whether eat apple"""
     basic_function.press_keyboard(handle, button_dict['M'], 2)
@@ -206,8 +243,8 @@ def check_character(handle, width, height, character):
         count = 0
         while max_val < 0.95 and count < 10:
             count += 1
-            basic_function.get_bitmap(handle, width, height)
             basic_function.press_keyboard(handle, button_dict['up'], 1.5)
+            basic_function.get_bitmap(handle, width, height)
             [min_val, max_val, min_loc, max_loc] = basic_function.template_matching(handle, width, height,
                                                                                     character, (821, 462))
         if max_val >= 0.95:
@@ -239,9 +276,10 @@ if __name__ == '__main__':
 
     basic_function.get_bitmap(hwnd, width, height)
 
-    for i in range(1):
+    for i in range(5):
         check_apple(hwnd, width, height)
-        check_character(hwnd, width, height, 'CBA_bondage.bmp')
-        atalanta_wcba(hwnd)
+        check_character(hwnd, width, height, 'kongming_bondage.bmp')
+        charlotte(hwnd)
         time.sleep(6)
+        print("···············")
     sys.exit()
