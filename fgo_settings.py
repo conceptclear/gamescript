@@ -231,7 +231,7 @@ def check_apple(handle, width, height):
 
 
 def check_character(handle, width, height, character):
-    """find CBA in assist"""
+    """find character in assist"""
     basic_function.get_bitmap(handle, width, height)
     print('finding ' + character)
     [min_val, max_val, min_loc, max_loc] = basic_function.template_matching(handle, width, height,
@@ -276,9 +276,9 @@ if __name__ == '__main__':
 
     basic_function.get_bitmap(hwnd, width, height)
 
-    for i in range(5):
+    for i in range(1):
         check_apple(hwnd, width, height)
-        check_character(hwnd, width, height, 'kongming_bondage.bmp')
+        check_character(hwnd, width, height, 'kongming_bondage1.bmp')
         charlotte(hwnd)
         time.sleep(6)
         print("···············")

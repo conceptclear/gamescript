@@ -8,13 +8,20 @@ import win32con
 import time
 import win32ui
 import cv2 as cv
+import random
+
+rand_num = True
+
+
+def rand_time():
+    return random.uniform(0, 0.5) if rand_num is True else 0
 
 
 def press_keyboard(handle, key, delay_time):
     """simulate keyboard keys in the background"""
     win32api.PostMessage(handle, win32con.WM_KEYDOWN, key, 0)
     win32api.PostMessage(handle, win32con.WM_KEYUP, key, 0)
-    time.sleep(delay_time)
+    time.sleep(delay_time + rand_time())
     return None
 
 
@@ -24,7 +31,7 @@ def press_mouse(handle, position, delay_time):
     win32gui.SendMessage(handle, win32con.WM_ACTIVATE, win32con.WA_ACTIVE, 0)
     win32gui.SendMessage(handle, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, p_position)
     win32gui.SendMessage(handle, win32con.WM_LBUTTONUP, win32con.MK_LBUTTON, p_position)
-    time.sleep(delay_time)
+    time.sleep(delay_time + rand_time())
     return None
 
 
