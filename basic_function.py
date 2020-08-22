@@ -75,10 +75,11 @@ def get_bitmap(handle, width, height):
 def template_matching(handle, width, height, pic, resolution):
     """check the pic whether existing or not"""
     tpl = cv.imread(pic)
+    size = tpl.shape
     target = cv.imread("img_check.bmp")
     target = cv.resize(target, resolution)
 
     result = cv.matchTemplate(target, tpl, cv.TM_CCOEFF_NORMED)
     min_val, max_val, min_loc, max_loc = cv.minMaxLoc(result)
 
-    return [min_val, max_val, min_loc, max_loc]
+    return [min_val, max_val, min_loc, max_loc, size[0], size[1]]

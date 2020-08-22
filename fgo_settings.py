@@ -206,18 +206,57 @@ def charlotte(handle):
     print('battle finish')
     return None
 
+def mordred_QP(handle):
+    """Mordred and Paracelsus"""
+    # first map
+    basic_function.press_keyboard(handle, button_dict['A'], 3)
+    basic_function.press_keyboard(handle, button_dict['E'], 3)
+    basic_function.press_keyboard(handle, button_dict['F'], 0.5)
+    basic_function.press_keyboard(handle, button_dict['O'], 3)
+    basic_function.press_keyboard(handle, button_dict['J'], 3)
+    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
+    rand_card(handle)
+    time.sleep(27)
 
-def check_apple(handle, width, height):
+    # second map
+    basic_function.press_keyboard(handle, button_dict['J'], 3)
+    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
+    rand_card(handle)
+    time.sleep(27)
+
+    # third map
+    basic_function.press_keyboard(handle, button_dict['J'], 3)
+    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
+    rand_card(handle)
+    time.sleep(25)
+    for i in range(5):
+        basic_function.press_keyboard(handle, button_dict['4'], 1)
+    print('battle finish')
+    return None
+
+def continue_attack(handle, width, height, action):
+    """check whether continue attacking"""
+    if not action:
+        basic_function.press_keyboard(handle, button_dict['E'], 3)
+    else:
+        basic_function.press_keyboard(handle, button_dict['H'], 3)
+    return None
+
+
+
+def check_apple(handle, width, height, state):
     """check whether eat apple"""
-    basic_function.press_keyboard(handle, button_dict['M'], 2)
+    if state:
+        basic_function.press_keyboard(handle, button_dict['M'], 2)
     print('Checking whether to eat apple')
     basic_function.get_bitmap(handle, width, height)
-    [min_val1, max_val1, min_loc1, max_loc1] = basic_function.template_matching(handle, width, height, 'apple.bmp',
+    [min_val1, max_val1, min_loc1, max_loc1, th, tw] = basic_function.template_matching(handle, width, height, 'apple.bmp',
                                                                                 (821, 462))
-    [min_val2, max_val2, min_loc2, max_loc2] = basic_function.template_matching(handle, width, height, 'assist.bmp',
+    [min_val2, max_val2, min_loc2, max_loc2, th, tw] = basic_function.template_matching(handle, width, height, 'assist.bmp',
                                                                                 (821, 462))
     if max_val1 > 0.95:
         print("eat apple")
+        #sys.exit()
         basic_function.press_keyboard(handle, button_dict['T'], 1)
         basic_function.press_keyboard(handle, button_dict['H'], 2)
     elif max_val2 > 0.95:
@@ -234,10 +273,8 @@ def check_character(handle, width, height, character):
     """find character in assist"""
     basic_function.get_bitmap(handle, width, height)
     print('finding ' + character)
-    [min_val, max_val, min_loc, max_loc] = basic_function.template_matching(handle, width, height,
+    [min_val, max_val, min_loc, max_loc, th, tw] = basic_function.template_matching(handle, width, height,
                                                                             character, (821, 462))
-    th = 91
-    tw = 105
 
     while max_val < 0.95:
         count = 0
@@ -245,7 +282,7 @@ def check_character(handle, width, height, character):
             count += 1
             basic_function.press_keyboard(handle, button_dict['up'], 1.5)
             basic_function.get_bitmap(handle, width, height)
-            [min_val, max_val, min_loc, max_loc] = basic_function.template_matching(handle, width, height,
+            [min_val, max_val, min_loc, max_loc, th, tw] = basic_function.template_matching(handle, width, height,
                                                                                     character, (821, 462))
         if max_val >= 0.95:
             break
@@ -275,11 +312,17 @@ if __name__ == '__main__':
     height = top - bottom
 
     basic_function.get_bitmap(hwnd, width, height)
+    repeatnum = 2
 
-    for i in range(1):
-        check_apple(hwnd, width, height)
-        check_character(hwnd, width, height, 'kongming_bondage1.bmp')
-        charlotte(hwnd)
+    check_apple(hwnd, width, height, True)
+    for i in range(repeatnum):
+        check_character(hwnd, width, height, 'QP.jpg')
+        mordred_QP(hwnd)
+        if i < repeatnum-1:
+            continue_attack(hwnd, width, height, True)
+        else:
+            continue_attack(hwnd, width, height, False)
+        check_apple(hwnd, width, height, False)
         time.sleep(6)
         print("···············")
     sys.exit()
