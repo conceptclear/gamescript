@@ -2,11 +2,13 @@
 
 """general settings for fgo"""
 
-import basic_function
-import win32gui
 import random
-import time
 import sys
+import time
+
+import win32gui
+
+import basic_function
 
 """dictionary of button"""
 button_dict = {
@@ -50,44 +52,6 @@ def rand_card(handle):
     return None
 
 
-def fight_bone(handle):
-    """battle process for bone hunting"""
-    # first map
-    basic_function.press_keyboard(handle, button_dict['A'], 3)
-    basic_function.press_keyboard(handle, button_dict['J'], 3)
-    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
-    rand_card(handle)
-    time.sleep(27)
-
-    # second map
-    basic_function.press_keyboard(handle, button_dict['B'], 3)
-    basic_function.press_keyboard(handle, button_dict['J'], 3)
-    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
-    rand_card(handle)
-    time.sleep(30)
-
-    # third map
-    basic_function.press_keyboard(handle, button_dict['2'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['E'], 3)
-    basic_function.press_keyboard(handle, button_dict['F'], 3)
-    basic_function.press_keyboard(handle, button_dict['G'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['P'], 3)
-    basic_function.press_keyboard(handle, button_dict['H'], 3)
-    basic_function.press_keyboard(handle, button_dict['I'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['P'], 3)
-    basic_function.press_keyboard(handle, button_dict['S'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['U'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['P'], 3)
-    basic_function.press_keyboard(handle, button_dict['J'], 3)
-    basic_function.press_keyboard(handle, button_dict['L'], 0.5)
-    rand_card(handle)
-    time.sleep(25)
-    for i in range(5):
-        basic_function.press_keyboard(handle, button_dict['4'], 1)
-    print('battle finish')
-    return None
-
-
 def lancelot_wcba(handle):
     """battle process for mad lancelot with 2 cba"""
     # first map
@@ -124,7 +88,7 @@ def lancelot_wcba(handle):
     basic_function.press_keyboard(handle, button_dict['K'], 0.5)
     rand_card(handle)
     time.sleep(25)
-    for i in range(5):
+    for repeat in range(5):
         basic_function.press_keyboard(handle, button_dict['4'], 1)
     print('battle finish')
     return None
@@ -164,7 +128,7 @@ def atalanta_wcba(handle):
     basic_function.press_keyboard(handle, button_dict['K'], 0.5)
     rand_card(handle)
     time.sleep(22)
-    for i in range(5):
+    for repeat in range(5):
         basic_function.press_keyboard(handle, button_dict['4'], 1)
     print('battle finish')
     return None
@@ -201,12 +165,13 @@ def charlotte(handle):
     basic_function.press_keyboard(handle, button_dict['L'], 0.5)
     rand_card(handle)
     time.sleep(22)
-    for i in range(5):
+    for repeat in range(5):
         basic_function.press_keyboard(handle, button_dict['4'], 1)
     print('battle finish')
     return None
 
-def mordred_QP(handle):
+
+def mordred_qp(handle):
     """Mordred and Paracelsus"""
     # first map
     basic_function.press_keyboard(handle, button_dict['A'], 3)
@@ -229,12 +194,13 @@ def mordred_QP(handle):
     basic_function.press_keyboard(handle, button_dict['K'], 0.5)
     rand_card(handle)
     time.sleep(25)
-    for i in range(5):
+    for repeat in range(5):
         basic_function.press_keyboard(handle, button_dict['4'], 1)
     print('battle finish')
     return None
 
-def continue_attack(handle, width, height, action):
+
+def continue_attack(handle, action):
     """check whether continue attacking"""
     if not action:
         basic_function.press_keyboard(handle, button_dict['E'], 3)
@@ -243,22 +209,24 @@ def continue_attack(handle, width, height, action):
     return None
 
 
-
 def check_apple(handle, width, height, state):
     """check whether eat apple"""
-    if state:
-        basic_function.press_keyboard(handle, button_dict['M'], 2)
     print('Checking whether to eat apple')
     basic_function.get_bitmap(handle, width, height)
-    [min_val1, max_val1, min_loc1, max_loc1, th, tw] = basic_function.template_matching(handle, width, height, 'apple.bmp',
-                                                                                (821, 462))
-    [min_val2, max_val2, min_loc2, max_loc2, th, tw] = basic_function.template_matching(handle, width, height, 'assist.bmp',
-                                                                                (821, 462))
+    [min_val1, max_val1, min_loc1, max_loc1, th, tw] = basic_function.template_matching(handle, width, height,
+                                                                                        'apple.bmp',
+                                                                                        (821, 462))
+    [min_val2, max_val2, min_loc2, max_loc2, th, tw] = basic_function.template_matching(handle, width, height,
+                                                                                        'assist.bmp',
+                                                                                        (821, 462))
     if max_val1 > 0.95:
         print("eat apple")
-        #sys.exit()
-        basic_function.press_keyboard(handle, button_dict['T'], 1)
-        basic_function.press_keyboard(handle, button_dict['H'], 2)
+        if state:
+            basic_function.press_keyboard(handle, button_dict['T'], 1)
+            basic_function.press_keyboard(handle, button_dict['H'], 2)
+        else:
+            print("end loop")
+            sys.exit()
     elif max_val2 > 0.95:
         print("don't need to eat apple")
         return None
@@ -274,7 +242,7 @@ def check_character(handle, width, height, character):
     basic_function.get_bitmap(handle, width, height)
     print('finding ' + character)
     [min_val, max_val, min_loc, max_loc, th, tw] = basic_function.template_matching(handle, width, height,
-                                                                            character, (821, 462))
+                                                                                    character, (821, 462))
 
     while max_val < 0.95:
         count = 0
@@ -283,7 +251,7 @@ def check_character(handle, width, height, character):
             basic_function.press_keyboard(handle, button_dict['up'], 1.5)
             basic_function.get_bitmap(handle, width, height)
             [min_val, max_val, min_loc, max_loc, th, tw] = basic_function.template_matching(handle, width, height,
-                                                                                    character, (821, 462))
+                                                                                            character, (821, 462))
         if max_val >= 0.95:
             break
         else:
@@ -306,23 +274,29 @@ def check_character(handle, width, height, character):
 
 
 if __name__ == '__main__':
+    """Four demos are provides in this script, you can adjust the demo to support your cards"""
+    print('This script is based on "网易MuMu模拟器“')
+    print('This demo is for berserker lancelot and double CBA with 2004年的碎片')
     hwnd = basic_function.get_handle('命运-冠位指定 - MuMu模拟器')
     left, bottom, right, top = win32gui.GetWindowRect(hwnd)
-    width = right - left
-    height = top - bottom
+    hwnd_width = right - left
+    hwnd_height = top - bottom
 
-    basic_function.get_bitmap(hwnd, width, height)
-    repeatnum = 2
+    repeat_num = int(input('Please input the number of cycles：'))
+    apple = int(input('Check whether to eat apples (1 equals to True; 0 equals to False)：'))
 
-    check_apple(hwnd, width, height, True)
-    for i in range(repeatnum):
-        check_character(hwnd, width, height, 'QP.jpg')
-        mordred_QP(hwnd)
-        if i < repeatnum-1:
-            continue_attack(hwnd, width, height, True)
+    for i in range(repeat_num):
+        check_character(hwnd, hwnd_width, hwnd_height, 'CBA_bondage.bmp')
+        lancelot_wcba(hwnd)
+        if i < repeat_num - 1:
+            continue_attack(hwnd, True)
+            if apple == 1:
+                check_apple(hwnd, hwnd_width, hwnd_height, True)
+            else:
+                check_apple(hwnd, hwnd_width, hwnd_height, False)
+            time.sleep(6)
+            print("···············")
         else:
-            continue_attack(hwnd, width, height, False)
-        check_apple(hwnd, width, height, False)
-        time.sleep(6)
-        print("···············")
+            continue_attack(hwnd, False)
+            print("Loop terminated")
     sys.exit()
