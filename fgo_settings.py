@@ -5,6 +5,7 @@
 import random
 import sys
 import time
+import xlrd
 
 import win32gui
 
@@ -52,154 +53,6 @@ def rand_card(handle):
     return None
 
 
-def lancelot_wcba(handle):
-    """battle process for mad lancelot with 2 cba"""
-    # first map
-    basic_function.press_keyboard(handle, button_dict['D'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['O'], 3)
-    basic_function.press_keyboard(handle, button_dict['G'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['O'], 3)
-    basic_function.press_keyboard(handle, button_dict['S'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['V'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['O'], 3)
-    basic_function.press_keyboard(handle, button_dict['J'], 3)
-    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
-    rand_card(handle)
-    time.sleep(27)
-
-    # second map
-    basic_function.press_keyboard(handle, button_dict['C'], 3)
-    basic_function.press_keyboard(handle, button_dict['F'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['O'], 3)
-    basic_function.press_keyboard(handle, button_dict['J'], 3)
-    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
-    rand_card(handle)
-    time.sleep(30)
-
-    # third map
-    basic_function.press_keyboard(handle, button_dict['I'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['O'], 3)
-    basic_function.press_keyboard(handle, button_dict['E'], 3)
-    basic_function.press_keyboard(handle, button_dict['H'], 3)
-    basic_function.press_keyboard(handle, button_dict['S'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['T'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['O'], 3)
-    basic_function.press_keyboard(handle, button_dict['J'], 3)
-    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
-    rand_card(handle)
-    time.sleep(25)
-    for repeat in range(5):
-        basic_function.press_keyboard(handle, button_dict['4'], 1)
-    print('battle finish')
-    return None
-
-
-def atalanta_wcba(handle):
-    """battle process for atalanta with 2 cba"""
-    # first map
-    basic_function.press_keyboard(handle, button_dict['D'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['O'], 3)
-    basic_function.press_keyboard(handle, button_dict['G'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['O'], 3)
-    basic_function.press_keyboard(handle, button_dict['C'], 3)
-    basic_function.press_keyboard(handle, button_dict['J'], 3)
-    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
-    rand_card(handle)
-    time.sleep(24)
-
-    # second map
-    basic_function.press_keyboard(handle, button_dict['F'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['O'], 3)
-    basic_function.press_keyboard(handle, button_dict['J'], 3)
-    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
-    rand_card(handle)
-    time.sleep(24)
-
-    # third map
-    basic_function.press_keyboard(handle, button_dict['A'], 3)
-    basic_function.press_keyboard(handle, button_dict['I'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['O'], 3)
-    basic_function.press_keyboard(handle, button_dict['E'], 3)
-    basic_function.press_keyboard(handle, button_dict['H'], 3)
-    basic_function.press_keyboard(handle, button_dict['S'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['U'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['O'], 3)
-    basic_function.press_keyboard(handle, button_dict['J'], 3)
-    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
-    rand_card(handle)
-    time.sleep(22)
-    for repeat in range(5):
-        basic_function.press_keyboard(handle, button_dict['4'], 1)
-    print('battle finish')
-    return None
-
-
-def charlotte(handle):
-    """battle in charlotte to get dust"""
-    # first map
-    basic_function.press_keyboard(handle, button_dict['A'], 3)
-    basic_function.press_keyboard(handle, button_dict['B'], 3)
-    basic_function.press_keyboard(handle, button_dict['F'], 3)
-    basic_function.press_keyboard(handle, button_dict['J'], 3)
-    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
-    rand_card(handle)
-    time.sleep(24)
-
-    # second map
-    basic_function.press_keyboard(handle, button_dict['C'], 3)
-    basic_function.press_keyboard(handle, button_dict['G'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['O'], 3)
-    basic_function.press_keyboard(handle, button_dict['H'], 3)
-    basic_function.press_keyboard(handle, button_dict['I'], 3)
-    basic_function.press_keyboard(handle, button_dict['J'], 3)
-    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
-    rand_card(handle)
-    time.sleep(24)
-
-    # third map
-    basic_function.press_keyboard(handle, button_dict['D'], 3)
-    basic_function.press_keyboard(handle, button_dict['S'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['U'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['P'], 3)
-    basic_function.press_keyboard(handle, button_dict['J'], 3)
-    basic_function.press_keyboard(handle, button_dict['L'], 0.5)
-    rand_card(handle)
-    time.sleep(22)
-    for repeat in range(5):
-        basic_function.press_keyboard(handle, button_dict['4'], 1)
-    print('battle finish')
-    return None
-
-
-def mordred_qp(handle):
-    """Mordred and Paracelsus"""
-    # first map
-    basic_function.press_keyboard(handle, button_dict['A'], 3)
-    basic_function.press_keyboard(handle, button_dict['E'], 3)
-    basic_function.press_keyboard(handle, button_dict['F'], 0.5)
-    basic_function.press_keyboard(handle, button_dict['O'], 3)
-    basic_function.press_keyboard(handle, button_dict['J'], 3)
-    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
-    rand_card(handle)
-    time.sleep(27)
-
-    # second map
-    basic_function.press_keyboard(handle, button_dict['J'], 3)
-    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
-    rand_card(handle)
-    time.sleep(27)
-
-    # third map
-    basic_function.press_keyboard(handle, button_dict['J'], 3)
-    basic_function.press_keyboard(handle, button_dict['K'], 0.5)
-    rand_card(handle)
-    time.sleep(25)
-    for repeat in range(5):
-        basic_function.press_keyboard(handle, button_dict['4'], 1)
-    print('battle finish')
-    return None
-
-
 def continue_attack(handle, action):
     """check whether continue attacking"""
     if not action:
@@ -213,12 +66,12 @@ def check_apple(handle, width, height, state):
     """check whether eat apple"""
     print('Checking whether to eat apple')
     basic_function.get_bitmap(handle, width, height)
-    [min_val1, max_val1, min_loc1, max_loc1, th, tw] = basic_function.template_matching(handle, width, height,
-                                                                                        'apple.bmp',
-                                                                                        (821, 462))
-    [min_val2, max_val2, min_loc2, max_loc2, th, tw] = basic_function.template_matching(handle, width, height,
-                                                                                        'assist.bmp',
-                                                                                        (821, 462))
+    [min_val1, max_val1, min_loc1, max_loc1, th, tw] = basic_function.template_matching('img_check.bmp',
+                                                                                        'source/apple.jpg',
+                                                                                        (1280, 720), 0)
+    [min_val2, max_val2, min_loc2, max_loc2, th, tw] = basic_function.template_matching('img_check.bmp',
+                                                                                        'source/assist.jpg',
+                                                                                        (1280, 720), 0)
     if max_val1 > 0.95:
         print("eat apple")
         if state:
@@ -237,23 +90,43 @@ def check_apple(handle, width, height, state):
     return None
 
 
-def check_character(handle, width, height, character):
+def check_character(handle, width, height, character, equipment):
     """find character in assist"""
     basic_function.get_bitmap(handle, width, height)
     print('finding ' + character)
-    [min_val, max_val, min_loc, max_loc, th, tw] = basic_function.template_matching(handle, width, height,
-                                                                                    character, (821, 462))
+    [min_val, max_val, min_loc, max_loc, th, tw] = basic_function.template_matching('img_check.bmp',
+                                                                                    'source/' + character + '.jpg',
+                                                                                    (1280, 720), 0)
 
-    while max_val < 0.95:
+    while 1:
         count = 0
         while max_val < 0.95 and count < 10:
             count += 1
             basic_function.press_keyboard(handle, button_dict['up'], 1.5)
             basic_function.get_bitmap(handle, width, height)
-            [min_val, max_val, min_loc, max_loc, th, tw] = basic_function.template_matching(handle, width, height,
-                                                                                            character, (821, 462))
+            [min_val, max_val, min_loc, max_loc, th, tw] = basic_function.template_matching('img_check.bmp',
+                                                                                            'source/' + character + '.jpg',
+                                                                                            (1280, 720), 0)
         if max_val >= 0.95:
-            break
+            print('OK')
+            if equipment == 0:
+                print("don't need to find equipment")
+                break
+            else:
+                print("checking " + equipment)
+                [min_val1, max_val1, min_loc1, max_loc1, th1, tw1] = basic_function.template_matching('img_check.bmp',
+                                                                                                      'source/' + equipment + '.jpg',
+                                                                                                      (1280, 720),
+                                                                                                      [max_loc[1] + th,
+                                                                                                       max_loc[
+                                                                                                           1] + th + 70,
+                                                                                                       max_loc[0] - 20,
+                                                                                                       max_loc[
+                                                                                                           0] + tw + 20])
+                if max_val1 >= 0.95:
+                    break
+                else:
+                    print("equipment did not match")
         else:
             time.sleep(10)
             print('could not find ' + character + ', refresh')
@@ -265,29 +138,88 @@ def check_character(handle, width, height, character):
     br = (tl[0] + tw, tl[1] + th)
 
     point = [0, 0]
-    point[0] = int((tl[0] + br[0]) / 2 / 821 * width)
-    point[1] = int((tl[1] + br[1]) / 2 / 462 * height)
+    point[0] = int((tl[0] + br[0]) / 2 / 1280 * width)
+    point[1] = int((tl[1] + br[1]) / 2 / 720 * height)
 
     basic_function.press_mouse(handle, point, 3)
     basic_function.press_keyboard(handle, button_dict['4'], 22)
     return None
 
 
+def read_strategy(handle):
+    wb = xlrd.open_workbook('strategy.xlsx')
+    for battle in range(3):
+        side = wb.sheet_by_name('Side' + str(battle + 1))
+        for repeat in range(9):
+            if side.cell(2 + repeat, 1).value != 1:
+                continue
+            else:
+                if side.cell(2 + repeat, 2).value == 0:
+                    basic_function.press_keyboard(handle, button_dict[chr(65 + repeat)], 3)
+                elif side.cell(2 + repeat, 2).value > 6 or side.cell(2 + repeat, 2).value < 0:
+                    print("error input")
+                elif side.cell(2 + repeat, 2).value < 4:
+                    basic_function.press_keyboard(handle, button_dict[chr(65 + repeat)], 0.5)
+                    basic_function.press_keyboard(handle, button_dict[chr(78 + int(side.cell(2 + repeat, 2).value))], 3)
+                else:
+                    basic_function.press_keyboard(handle, button_dict[chr(57 + int(side.cell(2 + repeat, 2).value))],
+                                                  0.5)
+                    basic_function.press_keyboard(handle, button_dict[chr(65 + repeat)], 3)
+
+        for repeat in range(3):
+            if side.cell(11 + repeat, 1).value != 1:
+                continue
+            else:
+                basic_function.press_keyboard(handle, button_dict['S'], 0.5)
+                if side.cell(11 + repeat, 2).value == 0:
+                    basic_function.press_keyboard(handle, button_dict[chr(84 + repeat)], 3)
+                elif side.cell(11 + repeat, 2).value > 4 or side.cell(11 + repeat, 2).value < 0:
+                    print("error input")
+                else:
+                    basic_function.press_keyboard(handle, button_dict[chr(84 + repeat)], 0.5)
+                    basic_function.press_keyboard(handle, button_dict[chr(78 + int(side.cell(11 + repeat, 2).value))],
+                                                  3)
+
+        basic_function.press_keyboard(handle, button_dict['J'], 3)
+        for repeat in range(3):
+            if side.cell(15 + repeat, 1).value != 1:
+                continue
+            else:
+                if side.cell(15 + repeat, 2).value == 0:
+                    basic_function.press_keyboard(handle, button_dict[chr(75 + repeat)], 0.5)
+                elif side.cell(15 + repeat, 2).value > 4 or side.cell(15 + repeat, 2).value < 0:
+                    print("error input")
+                else:
+                    basic_function.press_keyboard(handle, button_dict[chr(60 + int(side.cell(15 + repeat, 2).value))],
+                                                  0.5)
+                    basic_function.press_keyboard(handle, button_dict[chr(75 + repeat)], 0.5)
+
+        rand_card(hwnd)
+        time.sleep(side.cell(18, 1).value)
+
+    for repeat in range(5):
+        basic_function.press_keyboard(handle, button_dict['4'], 1)
+    print('battle finish')
+    return None
+
+
 if __name__ == '__main__':
-    """Four demos are provides in this script, you can adjust the demo to support your cards"""
     print('This script is based on "网易MuMu模拟器“')
-    print('This demo is for berserker lancelot and double CBA with 2004年的碎片')
+    print('可以通过修改strategy.xlsx来实现刷本策略的改变，默认为狂兰WCBA带04服')
     hwnd = basic_function.get_handle('命运-冠位指定 - MuMu模拟器')
     left, bottom, right, top = win32gui.GetWindowRect(hwnd)
     hwnd_width = right - left
     hwnd_height = top - bottom
 
-    repeat_num = int(input('Please input the number of cycles：'))
-    apple = int(input('Check whether to eat apples (1 equals to True; 0 equals to False)：'))
+    repeat_num = int(input('请输入重复刷本的次数：'))
+    apple = int(input('是否需要吃苹果？（1代表是，0代表不是）：'))
+
+    character = input('请输入需要寻找的助战角色(现在提供的有CBA, kongming, merlin, nero, fox)：')
+    equipment = input('请输入助战角色身上带的概念礼装（现在提供的有贝拉丽莎（QP），午餐学妹（bondage）：')
 
     for i in range(repeat_num):
-        check_character(hwnd, hwnd_width, hwnd_height, 'CBA_bondage.bmp')
-        lancelot_wcba(hwnd)
+        check_character(hwnd, hwnd_width, hwnd_height, character, equipment)
+        read_strategy(hwnd)
         if i < repeat_num - 1:
             continue_attack(hwnd, True)
             if apple == 1:
