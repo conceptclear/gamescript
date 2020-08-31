@@ -241,7 +241,7 @@ if __name__ == '__main__':
     print('This script is based on "网易MuMu模拟器“')
     print('可以通过修改strategy.xlsx来实现刷本策略的改变，默认为满破宝石+冲莫豆爸')
     hwnd = basic_function.get_handle('命运-冠位指定 - MuMu模拟器')
-    resolution = int(input("请先输入显示-缩放与布局-更改文本、应用等项目的大小下的分辨率比例大小（比如125%即输入1.25）："))
+    resolution = float(input("请先输入显示-缩放与布局-更改文本、应用等项目的大小下的分辨率比例大小（比如125%即输入1.25）："))
     left, bottom, right, top = win32gui.GetWindowRect(hwnd)
     hwnd_width = right - left
     hwnd_height = top - bottom
