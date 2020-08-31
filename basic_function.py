@@ -81,7 +81,8 @@ def template_matching(check_pic, template_pic, resolution, check_area):
     template = cv.imread(template_pic)
     size = template.shape
     target = cv.imread(check_pic)
-    target = cv.resize(target, resolution)
+    if resolution != 0:
+        target = cv.resize(target, resolution)
     if check_area != 0:
         target = target[check_area[0]:check_area[1], check_area[2]:check_area[3]]
 
@@ -89,3 +90,14 @@ def template_matching(check_pic, template_pic, resolution, check_area):
     min_val, max_val, min_loc, max_loc = cv.minMaxLoc(result)
 
     return [min_val, max_val, min_loc, max_loc, size[0], size[1]]
+
+
+def save_sliced_binarization_pic(origin_pic, resolution, slicing_area):
+    """slice the origin picture to get a binarizational picture"""
+    pic = cv.imread(origin_pic)
+    pic = cv.resize(pic, resolution)
+    pic = pic[slicing_area[0]:slicing_area[1], slicing_area[2]:slicing_area[3]]
+    gray = cv.cvtColor(pic, cv.COLOR_RGB2GRAY)
+    temp = cv.threshold(gray, 128, 255, cv.THRESH_BINARY)
+    cv.imwrite("img_binarization.jpg", temp[1])
+    return None

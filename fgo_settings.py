@@ -62,6 +62,35 @@ def continue_attack(handle, action):
     return None
 
 
+def check_fight(handle, width, height, resolution):
+    """check which side of the fight"""
+    basic_function.get_bitmap(handle, width, height, resolution)
+    basic_function.save_sliced_binarization_pic("img_check.bmp", (1280, 720), [5, 45, 860, 890])
+    [min_val, max_val1, min_loc, max_loc, th, tw] = basic_function.template_matching('img_binarization.jpg',
+                                                                                     'source/1.jpg',
+                                                                                     0, 0)
+    [min_val, max_val2, min_loc, max_loc, th, tw] = basic_function.template_matching('img_binarization.jpg',
+                                                                                     'source/2.jpg',
+                                                                                     0, 0)
+    [min_val, max_val3, min_loc, max_loc, th, tw] = basic_function.template_matching('img_binarization.jpg',
+                                                                                     'source/3.jpg',
+                                                                                     0, 0)
+    result = max(max_val1, max_val2, max_val3)
+    if result < 0.75:
+        print('Failed to enter the any side')
+        sys.exit()
+    else:
+        if result == max_val1:
+            return 1
+        if result == max_val2:
+            return 2
+        if result == max_val3:
+            return 3
+        else:
+            print('error occurred')
+            return None
+
+
 def check_apple(handle, width, height, resolution, state):
     """check whether eat apple"""
     print('Checking whether to eat apple')
@@ -144,6 +173,9 @@ def check_character(handle, width, height, character, equipment, resolution):
                     break
                 else:
                     print("checking " + equipment)
+                    if max_loc[1] + th + 70 > 720:
+                        print("equipment did not match")
+                        continue
                     [min_val1, max_val1, min_loc1, max_loc1, th1, tw1] = basic_function.template_matching(
                         'img_check.bmp',
                         'source/' + equipment + '.jpg',
@@ -177,9 +209,14 @@ def check_character(handle, width, height, character, equipment, resolution):
     return None
 
 
-def read_strategy(handle):
+def read_strategy(handle, width, height, resolution):
     wb = xlrd.open_workbook('strategy.xlsx')
     for battle in range(3):
+        if battle != check_fight(handle, width, height, resolution)-1:
+            print("error occurred in fight " + str(battle+1))
+            sys.exit()
+        else:
+            print("Start fight in side " + str(battle+1))
         side = wb.sheet_by_name('Side' + str(battle + 1))
         for repeat in range(9):
             if side.cell(2 + repeat, 1).value != 1:
@@ -254,7 +291,7 @@ if __name__ == '__main__':
 
     for i in range(repeat_num):
         check_character(hwnd, hwnd_width, hwnd_height, character, equipment, resolution)
-        read_strategy(hwnd)
+        read_strategy(hwnd, hwnd_width, hwnd_height, resolution)
         if i < repeat_num - 1:
             continue_attack(hwnd, True)
             if apple == 1:
