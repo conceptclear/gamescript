@@ -62,10 +62,10 @@ def continue_attack(handle, action):
     return None
 
 
-def check_apple(handle, width, height, state):
+def check_apple(handle, width, height, resolution, state):
     """check whether eat apple"""
     print('Checking whether to eat apple')
-    basic_function.get_bitmap(handle, width, height)
+    basic_function.get_bitmap(handle, width, height, resolution)
     [min_val1, max_val1, min_loc1, max_loc1, th, tw] = basic_function.template_matching('img_check.bmp',
                                                                                         'source/apple.jpg',
                                                                                         (1280, 720), 0)
@@ -90,49 +90,80 @@ def check_apple(handle, width, height, state):
     return None
 
 
-def check_character(handle, width, height, character, equipment):
+def check_character(handle, width, height, character, equipment, resolution):
     """find character in assist"""
-    basic_function.get_bitmap(handle, width, height)
-    print('finding ' + character)
-    [min_val, max_val, min_loc, max_loc, th, tw] = basic_function.template_matching('img_check.bmp',
-                                                                                    'source/' + character + '.jpg',
-                                                                                    (1280, 720), 0)
-
-    while 1:
-        count = 0
-        while max_val < 0.95 and count < 10:
-            count += 1
-            basic_function.press_keyboard(handle, button_dict['up'], 1.5)
-            basic_function.get_bitmap(handle, width, height)
+    basic_function.get_bitmap(handle, width, height, resolution)
+    if character == str(0):
+        print("don't need to find character")
+        if equipment == str(0):
+            print("don't need to find equipment")
+            basic_function.press_keyboard(handle, button_dict['N'], 3)
+            basic_function.press_keyboard(handle, button_dict['4'], 22)
+            return None
+        else:
+            print("finding " + equipment)
             [min_val, max_val, min_loc, max_loc, th, tw] = basic_function.template_matching('img_check.bmp',
-                                                                                            'source/' + character + '.jpg',
+                                                                                            'source/' + equipment + '.jpg',
                                                                                             (1280, 720), 0)
-        if max_val >= 0.95:
-            print('OK')
-            if equipment == 0:
-                print("don't need to find equipment")
-                break
-            else:
-                print("checking " + equipment)
-                [min_val1, max_val1, min_loc1, max_loc1, th1, tw1] = basic_function.template_matching('img_check.bmp',
-                                                                                                      'source/' + equipment + '.jpg',
-                                                                                                      (1280, 720),
-                                                                                                      [max_loc[1] + th,
-                                                                                                       max_loc[
-                                                                                                           1] + th + 70,
-                                                                                                       max_loc[0] - 20,
-                                                                                                       max_loc[
-                                                                                                           0] + tw + 20])
-                if max_val1 >= 0.95:
+            while 1:
+                count = 0
+                while max_val < 0.95 and count < 10:
+                    count += 1
+                    basic_function.press_keyboard(handle, button_dict['up'], 1.5)
+                    basic_function.get_bitmap(handle, width, height, resolution)
+                    [min_val, max_val, min_loc, max_loc, th, tw] = basic_function.template_matching('img_check.bmp',
+                                                                                                    'source/' + equipment + '.jpg',
+                                                                                                    (1280, 720), 0)
+                if max_val >= 0.95:
                     break
                 else:
-                    print("equipment did not match")
-        else:
-            time.sleep(10)
-            print('could not find ' + character + ', refresh')
-            basic_function.press_keyboard(handle, button_dict['5'], 1)
-            basic_function.press_keyboard(handle, button_dict['H'], 1)
-    print('OK')
+                    time.sleep(10)
+                    print('could not find ' + equipment + ', refresh')
+                    basic_function.press_keyboard(handle, button_dict['5'], 1)
+                    basic_function.press_keyboard(handle, button_dict['H'], 1)
+            print('OK')
+    else:
+        print('finding ' + character)
+        [min_val, max_val, min_loc, max_loc, th, tw] = basic_function.template_matching('img_check.bmp',
+                                                                                        'source/' + character + '.jpg',
+                                                                                        (1280, 720), 0)
+
+        while 1:
+            count = 0
+            while max_val < 0.95 and count < 10:
+                count += 1
+                basic_function.press_keyboard(handle, button_dict['up'], 1.5)
+                basic_function.get_bitmap(handle, width, height, resolution)
+                [min_val, max_val, min_loc, max_loc, th, tw] = basic_function.template_matching('img_check.bmp',
+                                                                                                'source/' + character + '.jpg',
+                                                                                                (1280, 720), 0)
+            if max_val >= 0.95:
+                print('OK')
+                if equipment == str(0):
+                    print("don't need to find equipment")
+                    break
+                else:
+                    print("checking " + equipment)
+                    [min_val1, max_val1, min_loc1, max_loc1, th1, tw1] = basic_function.template_matching(
+                        'img_check.bmp',
+                        'source/' + equipment + '.jpg',
+                        (1280, 720),
+                        [max_loc[1] + th,
+                         max_loc[
+                             1] + th + 70,
+                         max_loc[0] - 20,
+                         max_loc[
+                             0] + tw + 20])
+                    if max_val1 >= 0.95:
+                        break
+                    else:
+                        print("equipment did not match")
+            else:
+                time.sleep(10)
+                print('could not find ' + character + ', refresh')
+                basic_function.press_keyboard(handle, button_dict['5'], 1)
+                basic_function.press_keyboard(handle, button_dict['H'], 1)
+        print('OK')
 
     tl = max_loc
     br = (tl[0] + tw, tl[1] + th)
@@ -158,6 +189,7 @@ def read_strategy(handle):
                     basic_function.press_keyboard(handle, button_dict[chr(65 + repeat)], 3)
                 elif side.cell(2 + repeat, 2).value > 6 or side.cell(2 + repeat, 2).value < 0:
                     print("error input")
+                    sys.exit()
                 elif side.cell(2 + repeat, 2).value < 4:
                     basic_function.press_keyboard(handle, button_dict[chr(65 + repeat)], 0.5)
                     basic_function.press_keyboard(handle, button_dict[chr(78 + int(side.cell(2 + repeat, 2).value))], 3)
@@ -175,6 +207,7 @@ def read_strategy(handle):
                     basic_function.press_keyboard(handle, button_dict[chr(84 + repeat)], 3)
                 elif side.cell(11 + repeat, 2).value > 4 or side.cell(11 + repeat, 2).value < 0:
                     print("error input")
+                    sys.exit()
                 else:
                     basic_function.press_keyboard(handle, button_dict[chr(84 + repeat)], 0.5)
                     basic_function.press_keyboard(handle, button_dict[chr(78 + int(side.cell(11 + repeat, 2).value))],
@@ -189,6 +222,7 @@ def read_strategy(handle):
                     basic_function.press_keyboard(handle, button_dict[chr(75 + repeat)], 0.5)
                 elif side.cell(15 + repeat, 2).value > 4 or side.cell(15 + repeat, 2).value < 0:
                     print("error input")
+                    sys.exit()
                 else:
                     basic_function.press_keyboard(handle, button_dict[chr(60 + int(side.cell(15 + repeat, 2).value))],
                                                   0.5)
@@ -205,8 +239,9 @@ def read_strategy(handle):
 
 if __name__ == '__main__':
     print('This script is based on "网易MuMu模拟器“')
-    print('可以通过修改strategy.xlsx来实现刷本策略的改变，默认为狂兰WCBA带04服')
+    print('可以通过修改strategy.xlsx来实现刷本策略的改变，默认为满破宝石+冲莫豆爸')
     hwnd = basic_function.get_handle('命运-冠位指定 - MuMu模拟器')
+    resolution = int(input("请先输入显示-缩放与布局-更改文本、应用等项目的大小下的分辨率比例大小（比如125%即输入1.25）："))
     left, bottom, right, top = win32gui.GetWindowRect(hwnd)
     hwnd_width = right - left
     hwnd_height = top - bottom
@@ -214,18 +249,18 @@ if __name__ == '__main__':
     repeat_num = int(input('请输入重复刷本的次数：'))
     apple = int(input('是否需要吃苹果？（1代表是，0代表不是）：'))
 
-    character = input('请输入需要寻找的助战角色(现在提供的有CBA, kongming, merlin, nero, fox)：')
-    equipment = input('请输入助战角色身上带的概念礼装（现在提供的有贝拉丽莎（QP），午餐学妹（bondage）：')
+    character = input('请输入需要寻找的助战角色(现在提供的有CBA, kongming, merlin, nero, fox，不需要输入0)：')
+    equipment = input('请输入助战角色身上带的概念礼装（现在提供的有贝拉丽莎（QP），红茶学妹（bondage），不需要输入0）：')
 
     for i in range(repeat_num):
-        check_character(hwnd, hwnd_width, hwnd_height, character, equipment)
+        check_character(hwnd, hwnd_width, hwnd_height, character, equipment, resolution)
         read_strategy(hwnd)
         if i < repeat_num - 1:
             continue_attack(hwnd, True)
             if apple == 1:
-                check_apple(hwnd, hwnd_width, hwnd_height, True)
+                check_apple(hwnd, hwnd_width, hwnd_height, resolution, True)
             else:
-                check_apple(hwnd, hwnd_width, hwnd_height, False)
+                check_apple(hwnd, hwnd_width, hwnd_height, resolution, False)
             time.sleep(6)
             print("···············")
         else:

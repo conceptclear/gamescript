@@ -52,8 +52,12 @@ def get_handle(name):
     return hwnd
 
 
-def get_bitmap(handle, width, height):
+def get_bitmap(handle, width, height, resolution):
     """get background screenshot"""
+
+    width = int(width*resolution)
+    height = int(height*resolution)
+
     hWndDC = win32gui.GetWindowDC(handle)
     # device description table
     mfcDC = win32ui.CreateDCFromHandle(hWndDC)
