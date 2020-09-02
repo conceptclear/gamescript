@@ -127,7 +127,7 @@ def check_character(handle, width, height, character, equipment, resolution):
         if equipment == str(0):
             print("don't need to find equipment")
             basic_function.press_keyboard(handle, button_dict['N'], 3)
-            basic_function.press_keyboard(handle, button_dict['4'], 22)
+            basic_function.press_keyboard(handle, button_dict['4'], 3)
             return None
         else:
             print("finding " + equipment)
@@ -212,28 +212,30 @@ def check_character(handle, width, height, character, equipment, resolution):
 def read_strategy(handle, width, height, resolution):
     wb = xlrd.open_workbook('strategy.xlsx')
     for battle in range(3):
+        """
         if battle != check_fight(handle, width, height, resolution)-1:
             print("error occurred in fight " + str(battle+1))
             sys.exit()
         else:
             print("Start fight in side " + str(battle+1))
+        """
         side = wb.sheet_by_name('Side' + str(battle + 1))
         for repeat in range(9):
             if side.cell(2 + repeat, 1).value != 1:
                 continue
             else:
                 if side.cell(2 + repeat, 2).value == 0:
-                    basic_function.press_keyboard(handle, button_dict[chr(65 + repeat)], 3)
+                    basic_function.press_keyboard(handle, button_dict[chr(65 + repeat)], 4)
                 elif side.cell(2 + repeat, 2).value > 6 or side.cell(2 + repeat, 2).value < 0:
                     print("error input")
                     sys.exit()
                 elif side.cell(2 + repeat, 2).value < 4:
                     basic_function.press_keyboard(handle, button_dict[chr(65 + repeat)], 0.5)
-                    basic_function.press_keyboard(handle, button_dict[chr(78 + int(side.cell(2 + repeat, 2).value))], 3)
+                    basic_function.press_keyboard(handle, button_dict[chr(78 + int(side.cell(2 + repeat, 2).value))], 4)
                 else:
                     basic_function.press_keyboard(handle, button_dict[chr(57 + int(side.cell(2 + repeat, 2).value))],
                                                   0.5)
-                    basic_function.press_keyboard(handle, button_dict[chr(65 + repeat)], 3)
+                    basic_function.press_keyboard(handle, button_dict[chr(65 + repeat)], 4)
 
         for repeat in range(3):
             if side.cell(11 + repeat, 1).value != 1:
@@ -241,16 +243,16 @@ def read_strategy(handle, width, height, resolution):
             else:
                 basic_function.press_keyboard(handle, button_dict['S'], 0.5)
                 if side.cell(11 + repeat, 2).value == 0:
-                    basic_function.press_keyboard(handle, button_dict[chr(84 + repeat)], 3)
+                    basic_function.press_keyboard(handle, button_dict[chr(84 + repeat)], 4)
                 elif side.cell(11 + repeat, 2).value > 4 or side.cell(11 + repeat, 2).value < 0:
                     print("error input")
                     sys.exit()
                 else:
                     basic_function.press_keyboard(handle, button_dict[chr(84 + repeat)], 0.5)
                     basic_function.press_keyboard(handle, button_dict[chr(78 + int(side.cell(11 + repeat, 2).value))],
-                                                  3)
+                                                  4)
 
-        basic_function.press_keyboard(handle, button_dict['J'], 3)
+        basic_function.press_keyboard(handle, button_dict['J'], 4)
         for repeat in range(3):
             if side.cell(15 + repeat, 1).value != 1:
                 continue
@@ -289,7 +291,7 @@ if __name__ == '__main__':
     character = input('请输入需要寻找的助战角色(现在提供的有CBA, kongming, merlin, nero, fox，不需要输入0)：')
     equipment = input('请输入助战角色身上带的概念礼装（现在提供的有贝拉丽莎（QP），红茶学妹（bondage），不需要输入0）：')
 
-    wait_time = input('请输入从选人结束至第一面开始的预计时间（s）：')
+    wait_time = int(input('请输入从选人结束至第一面开始的预计时间（s）：'))
 
     for i in range(repeat_num):
         check_character(hwnd, hwnd_width, hwnd_height, character, equipment, resolution)
