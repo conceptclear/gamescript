@@ -205,7 +205,7 @@ def check_character(handle, width, height, character, equipment, resolution):
     point[1] = int((tl[1] + br[1]) / 2 / 720 * height)
 
     basic_function.press_mouse(handle, point, 3)
-    basic_function.press_keyboard(handle, button_dict['4'], 22)
+    basic_function.press_keyboard(handle, button_dict['4'], 3)
     return None
 
 
@@ -289,8 +289,11 @@ if __name__ == '__main__':
     character = input('请输入需要寻找的助战角色(现在提供的有CBA, kongming, merlin, nero, fox，不需要输入0)：')
     equipment = input('请输入助战角色身上带的概念礼装（现在提供的有贝拉丽莎（QP），红茶学妹（bondage），不需要输入0）：')
 
+    wait_time = input('请输入从选人结束至第一面开始的预计时间（s）：')
+
     for i in range(repeat_num):
         check_character(hwnd, hwnd_width, hwnd_height, character, equipment, resolution)
+        time.sleep(wait_time)
         read_strategy(hwnd, hwnd_width, hwnd_height, resolution)
         if i < repeat_num - 1:
             continue_attack(hwnd, True)
