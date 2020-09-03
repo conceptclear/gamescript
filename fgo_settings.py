@@ -175,6 +175,8 @@ def check_character(handle, width, height, character, equipment, resolution, del
                     print("checking " + equipment)
                     if max_loc[1] + th + 70 > 720:
                         print("equipment did not match")
+                        basic_function.press_keyboard(handle, button_dict['up'], 1.5 + delay_num)
+                        max_val = 0
                         continue
                     [min_val1, max_val1, min_loc1, max_loc1, th1, tw1] = basic_function.template_matching(
                         'img_check.bmp',
