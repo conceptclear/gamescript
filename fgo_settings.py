@@ -192,6 +192,9 @@ def check_character(handle, width, height, character, equipment, resolution, del
                         break
                     else:
                         print("equipment did not match")
+                        basic_function.press_keyboard(handle, button_dict['up'], 1.5 + delay_num)
+                        max_val = 0
+                        continue
             else:
                 time.sleep(10)
                 print('could not find ' + character + ', refresh')
@@ -207,7 +210,6 @@ def check_character(handle, width, height, character, equipment, resolution, del
     point[1] = int((tl[1] + br[1]) / 2 / 720 * height)
 
     basic_function.press_mouse(handle, point, 3 + delay_num)
-    basic_function.press_keyboard(handle, button_dict['4'], 3 + delay_num)
     return None
 
 
@@ -299,6 +301,8 @@ if __name__ == '__main__':
 
     for i in range(repeat_num):
         check_character(hwnd, hwnd_width, hwnd_height, character, equipment, resolution, delay_num)
+        if i == 0:
+            basic_function.press_keyboard(hwnd, button_dict['4'], 3 + delay_num)
         time.sleep(wait_time)
         read_strategy(hwnd, hwnd_width, hwnd_height, resolution, delay_num)
         if i < repeat_num - 1:
