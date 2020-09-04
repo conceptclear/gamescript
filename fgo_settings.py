@@ -127,7 +127,6 @@ def check_character(handle, width, height, character, equipment, resolution, del
         if equipment == str(0):
             print("don't need to find equipment")
             basic_function.press_keyboard(handle, button_dict['N'], 3 + delay_num)
-            basic_function.press_keyboard(handle, button_dict['4'], 3 + delay_num)
             return None
         else:
             print("finding " + equipment)
