@@ -20,6 +20,7 @@ def rand_time():
 def press_keyboard(handle, key, delay_time):
     """simulate keyboard keys in the background"""
     win32api.PostMessage(handle, win32con.WM_KEYDOWN, key, 0)
+    time.sleep(0.2)
     win32api.PostMessage(handle, win32con.WM_KEYUP, key, 0)
     time.sleep(delay_time + rand_time())
     return None

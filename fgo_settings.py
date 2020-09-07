@@ -256,6 +256,7 @@ def read_strategy(handle, width, height, resolution, delay_num, fight_turn):
                     basic_function.press_keyboard(handle, button_dict[chr(78 + int(side.cell(11 + repeat, 2).value))],
                                                   3 + delay_num)
 
+        # time.sleep(1 + delay_num)
         basic_function.press_keyboard(handle, button_dict['J'], 3 + delay_num)
         for repeat in range(3):
             num_spellcard = 0
