@@ -20,21 +20,41 @@ def rand_time():
 def press_keyboard(handle, key, delay_time):
     """simulate keyboard keys in the background"""
     win32api.PostMessage(handle, win32con.WM_KEYDOWN, key, 0)
-    time.sleep(0.2)
     win32api.PostMessage(handle, win32con.WM_KEYUP, key, 0)
     time.sleep(delay_time + rand_time())
     return None
 
 
-def press_mouse(handle, position, delay_time):
+def press_mouse(handle, position, handle_size, check_size, delay_time):
     """simulate mouse press in the background"""
-    p_position = win32api.MAKELONG(position[0], position[1])
+    point_x = int(position[0]*handle_size[0]/check_size[0])
+    point_y = int(position[1]*handle_size[1]/check_size[1])
+    p_position = win32api.MAKELONG(point_x, point_y)
     win32gui.SendMessage(handle, win32con.WM_ACTIVATE, win32con.WA_ACTIVE, 0)
     win32gui.SendMessage(handle, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, p_position)
     win32gui.SendMessage(handle, win32con.WM_LBUTTONUP, win32con.MK_LBUTTON, p_position)
     time.sleep(delay_time + rand_time())
     return None
 
+
+def slide_mouse(handle, position, handle_size, check_size, delay_time):
+    """simulate mouse sliding in the background"""
+    point1_x = int(position[0]*handle_size[0]/check_size[0])
+    point1_y = int(position[1]*handle_size[1]/check_size[1])
+    point2_x = int(position[2] * handle_size[0] / check_size[0])
+    point2_y = int(position[3] * handle_size[1] / check_size[1])
+    p_position = win32api.MAKELONG(point1_x, point1_y)
+    u_position = win32api.MAKELONG(point2_x, point2_y)
+    win32gui.SendMessage(handle, win32con.WM_ACTIVATE, win32con.WA_ACTIVE, 0)
+    win32gui.PostMessage(handle, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, p_position)
+    time.sleep(0.2)
+    steps = point1_y - point2_y
+    for i in range(steps):
+        win32gui.PostMessage(handle, win32con.WM_MOUSEMOVE, win32con.MK_LBUTTON, win32api.MAKELONG(point1_x, point1_y-i))
+        time.sleep(0.01)
+    win32gui.PostMessage(handle, win32con.WM_LBUTTONUP, 0, u_position)
+    time.sleep(delay_time + rand_time())
+    return None
 
 def get_child_windows(parent):
     """get child handle"""
@@ -48,6 +68,9 @@ def get_child_windows(parent):
 def get_handle(name):
     """get handle of execute program"""
     hwnd = win32gui.FindWindow(None, name)
+    if hwnd == 0:
+        print('error handle input!')
+        return False
     hwnd1 = get_child_windows(hwnd)
     hwnd = hwnd1[0]
     return hwnd
