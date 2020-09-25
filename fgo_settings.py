@@ -6,9 +6,7 @@ import random
 import sys
 import time
 import xlrd
-
 import win32gui
-
 import basic_function
 
 check_size = (1280, 720)
@@ -75,6 +73,13 @@ press_dict = {
     '4': (1190, 678),  # enter (right bottom)
     '5': (851, 130),  # refresh list
     'up': (400, 480, 400, 300),  # draw up
+    'chara1': (135, 352),  # character1 in change
+    'chara2': (338, 352),  # character2 in change
+    'chara3': (540, 352),  # character3 in change
+    'chara4': (742, 352),  # character4 in change
+    'chara5': (944, 352),  # character5 in change
+    'chara6': (1146, 352),  # character6 in change
+    'change': (650, 620),  # change character
 }
 
 
@@ -100,25 +105,19 @@ def check_fight(handle, width, height, resolution):
     """check which side of the fight"""
     basic_function.get_bitmap(handle, width, height, resolution)
     basic_function.save_sliced_binarization_pic("img_check.bmp", check_size, [5, 45, 860, 890])
-    [min_val, max_val1, min_loc, max_loc, th, tw] = basic_function.template_matching('img_binarization.jpg',
-                                                                                     'source/1.jpg',
-                                                                                     0, 0)
-    [min_val, max_val2, min_loc, max_loc, th, tw] = basic_function.template_matching('img_binarization.jpg',
-                                                                                     'source/2.jpg',
-                                                                                     0, 0)
-    [min_val, max_val3, min_loc, max_loc, th, tw] = basic_function.template_matching('img_binarization.jpg',
-                                                                                     'source/3.jpg',
-                                                                                     0, 0)
-    result = max(max_val1, max_val2, max_val3)
+    result1 = basic_function.template_matching('img_binarization.jpg', 'source/1.jpg', 0, 0)
+    result2 = basic_function.template_matching('img_binarization.jpg', 'source/2.jpg', 0, 0)
+    result3 = basic_function.template_matching('img_binarization.jpg', 'source/3.jpg', 0, 0)
+    result = max(result1[1], result2[1], result3[1])
     if result < 0.75:
         print('Failed to enter the any side')
         sys.exit()
     else:
-        if result == max_val1:
+        if result == result1[1]:
             return 1
-        if result == max_val2:
+        if result == result2[1]:
             return 2
-        if result == max_val3:
+        if result == result3[1]:
             return 3
         else:
             print('error occurred')
@@ -129,13 +128,9 @@ def check_apple(handle, width, height, resolution, state, delay_num):
     """check whether eat apple"""
     print('Checking whether to eat apple')
     basic_function.get_bitmap(handle, width, height, resolution)
-    [min_val1, max_val1, min_loc1, max_loc1, th, tw] = basic_function.template_matching('img_check.bmp',
-                                                                                        'source/apple.jpg',
-                                                                                        check_size, 0)
-    [min_val2, max_val2, min_loc2, max_loc2, th, tw] = basic_function.template_matching('img_check.bmp',
-                                                                                        'source/assist.jpg',
-                                                                                        check_size, 0)
-    if max_val1 > 0.95:
+    result1 = basic_function.template_matching('img_check.bmp', 'source/apple.jpg', check_size, 0)
+    result2 = basic_function.template_matching('img_check.bmp', 'source/assist.jpg', check_size, 0)
+    if result1[1] > 0.95:
         print("eat apple")
         if state:
             basic_function.press_mouse(handle, press_dict['T'], [width, height], check_size, 1 + delay_num)
@@ -143,7 +138,7 @@ def check_apple(handle, width, height, resolution, state, delay_num):
         else:
             print("end loop")
             sys.exit()
-    elif max_val2 > 0.95:
+    elif result2[1] > 0.95:
         print("don't need to eat apple")
         return None
     else:
@@ -253,73 +248,106 @@ def check_character(handle, width, height, character, equipment, resolution, del
     return None
 
 
-def read_strategy(handle, width, height, resolution, delay_num, fight_turn):
+def read_strategy(handle, width, height, resolution, delay_num, fight_turn, change_character):
     wb = xlrd.open_workbook('strategy.xlsx')
     for battle in range(fight_turn):
-        """
-        if battle != check_fight(handle, width, height, resolution)-1:
-            print("error occurred in fight " + str(battle+1))
-            sys.exit()
-        else:
-            print("Start fight in side " + str(battle+1))
-        """
+        print("Start fight in side " + str(battle+1))
         side = wb.sheet_by_name('Side' + str(battle + 1))
-        for repeat in range(9):
-            if side.cell(2 + repeat, 1).value != 1:
+        for i in range(9):
+            if side.cell(2 + i, 1).value != 1:
                 continue
             else:
-                if side.cell(2 + repeat, 2).value == 0:
-                    basic_function.press_mouse(handle, press_dict[chr(65 + repeat)], [width, height], check_size, 3 + delay_num)
-                elif side.cell(2 + repeat, 2).value > 6 or side.cell(2 + repeat, 2).value < 0:
+                if side.cell(2 + i, 2).value == 0:
+                    basic_function.press_mouse(handle, press_dict[chr(65 + i)], [width, height], check_size, 3 + delay_num)
+                elif side.cell(2 + i, 2).value > 6 or side.cell(2 + i, 2).value < 0:
                     print("error input")
                     sys.exit()
-                elif side.cell(2 + repeat, 2).value < 4:
-                    basic_function.press_mouse(handle, press_dict[chr(65 + repeat)], [width, height], check_size, 0.5 + delay_num)
-                    basic_function.press_mouse(handle, press_dict[chr(78 + int(side.cell(2 + repeat, 2).value))], [width, height], check_size,
+                elif side.cell(2 + i, 2).value < 4:
+                    basic_function.press_mouse(handle, press_dict[chr(65 + i)], [width, height], check_size, 0.5 + delay_num)
+                    basic_function.press_mouse(handle, press_dict[chr(78 + int(side.cell(2 + i, 2).value))], [width, height], check_size,
                                                   3 + delay_num)
                 else:
-                    basic_function.press_mouse(handle, press_dict[chr(57 + int(side.cell(2 + repeat, 2).value))], [width, height], check_size,
+                    basic_function.press_mouse(handle, press_dict[chr(57 + int(side.cell(2 + i, 2).value))], [width, height], check_size,
                                                   0.5 + delay_num)
-                    basic_function.press_mouse(handle, press_dict[chr(65 + repeat)], [width, height], check_size, 3 + delay_num)
+                    basic_function.press_mouse(handle, press_dict[chr(65 + i)], [width, height], check_size, 3 + delay_num)
 
-        for repeat in range(3):
-            if side.cell(11 + repeat, 1).value != 1:
+        for i in range(3):
+            if side.cell(11 + i, 1).value != 1:
                 continue
             else:
                 basic_function.press_mouse(handle, press_dict['S'], [width, height], check_size, 0.5 + delay_num)
-                if side.cell(11 + repeat, 2).value == 0:
-                    basic_function.press_mouse(handle, press_dict[chr(84 + repeat)], [width, height], check_size, 3 + delay_num)
-                elif side.cell(11 + repeat, 2).value > 4 or side.cell(11 + repeat, 2).value < 0:
+                if i == 2 and change_character == 1:
+                    if side.cell(13, 2).value > 3 or side.cell(13, 2).value < 1 or side.cell(13, 3).value > 6 or side.cell(13, 3).value < 4:
+                        print("error input")
+                        sys.exit()
+                    else:
+                        basic_function.press_mouse(handle, press_dict['V'], [width, height], check_size,
+                                                   0.5 + delay_num)
+                        basic_function.press_mouse(handle, press_dict['chara' + str(int(side.cell(13, 2).value))],
+                                                   [width, height], check_size,
+                                                   0.5 + delay_num)
+                        basic_function.press_mouse(handle, press_dict['chara' + str(int(side.cell(13, 3).value))],
+                                                   [width, height], check_size,
+                                                   0.5 + delay_num)
+                        basic_function.press_mouse(handle, press_dict['change'], [width, height], check_size, 5 + delay_num)
+                        print("character " + str(int(side.cell(13, 3).value)) + " change character " + str(int(side.cell(13, 2).value)))
+                        for j in range(3):
+                            if side.cell(14 + j, 1).value != 1:
+                                continue
+                            else:
+                                if side.cell(14 + j, 2).value == 0:
+                                    basic_function.press_mouse(handle, press_dict[chr(65 + (int(side.cell(13, 2).value) - 1) * 3 + j)], [width, height],
+                                                               check_size, 3 + delay_num)
+                                elif side.cell(14 + j, 2).value > 6 or side.cell(14 + j, 2).value < 0:
+                                    print("error input")
+                                    sys.exit()
+                                elif side.cell(14 + j, 2).value < 4:
+                                    basic_function.press_mouse(handle, press_dict[chr(65 + (int(side.cell(13, 2).value) - 1) * 3 + j)], [width, height],
+                                                               check_size, 0.5 + delay_num)
+                                    basic_function.press_mouse(handle,
+                                                               press_dict[chr(78 + int(side.cell(14 + j, 2).value))],
+                                                               [width, height], check_size,
+                                                               3 + delay_num)
+                                else:
+                                    basic_function.press_mouse(handle,
+                                                               press_dict[chr(57 + int(side.cell(14 + j, 2).value))],
+                                                               [width, height], check_size,
+                                                               0.5 + delay_num)
+                                    basic_function.press_mouse(handle, press_dict[chr(65 + (int(side.cell(13, 2).value) - 1) * 3 + j)], [width, height],
+                                                               check_size, 3 + delay_num)
+                elif side.cell(11 + i, 2).value == 0:
+                    basic_function.press_mouse(handle, press_dict[chr(84 + i)], [width, height], check_size, 3 + delay_num)
+                elif side.cell(11 + i, 2).value > 4 or side.cell(11 + i, 2).value < 0:
                     print("error input")
                     sys.exit()
                 else:
-                    basic_function.press_mouse(handle, press_dict[chr(84 + repeat)], [width, height], check_size, 0.5 + delay_num)
-                    basic_function.press_mouse(handle, press_dict[chr(78 + int(side.cell(11 + repeat, 2).value))], [width, height], check_size,
+                    basic_function.press_mouse(handle, press_dict[chr(84 + i)], [width, height], check_size, 0.5 + delay_num)
+                    basic_function.press_mouse(handle, press_dict[chr(78 + int(side.cell(11 + i, 2).value))], [width, height], check_size,
                                                   3 + delay_num)
 
         time.sleep(1 + delay_num)
         basic_function.press_mouse(handle, press_dict['J'], [width, height], check_size, 3 + delay_num)
         num_spellcard = 0
-        for repeat in range(3):
-            if side.cell(15 + repeat, 1).value != 1:
+        for i in range(3):
+            if side.cell(18 + i, 1).value != 1:
                 continue
             else:
-                if side.cell(15 + repeat, 2).value == 0:
-                    basic_function.press_mouse(handle, press_dict[chr(75 + repeat)], [width, height], check_size, 0.5 + delay_num)
+                if side.cell(18 + i, 2).value == 0:
+                    basic_function.press_mouse(handle, press_dict[chr(75 + i)], [width, height], check_size, 0.5 + delay_num)
                     num_spellcard += 1
-                elif side.cell(15 + repeat, 2).value > 4 or side.cell(15 + repeat, 2).value < 0:
+                elif side.cell(18 + i, 2).value > 4 or side.cell(18 + i, 2).value < 0:
                     print("error input")
                     sys.exit()
                 else:
-                    basic_function.press_mouse(handle, press_dict[chr(60 + int(side.cell(15 + repeat, 2).value))], [width, height], check_size,
+                    basic_function.press_mouse(handle, press_dict[chr(60 + int(side.cell(18 + i, 2).value))], [width, height], check_size,
                                                   0.5 + delay_num)
-                    basic_function.press_mouse(handle, press_dict[chr(75 + repeat)], [width, height], check_size, 0.5 + delay_num)
+                    basic_function.press_mouse(handle, press_dict[chr(75 + i)], [width, height], check_size, 0.5 + delay_num)
                     num_spellcard += 1
 
         rand_card(hwnd, 3-num_spellcard, width, height, delay_num)
-        time.sleep(side.cell(18, 1).value)
+        time.sleep(side.cell(21, 1).value)
 
-    for repeat in range(5):
+    for i in range(5):
         basic_function.press_mouse(handle, press_dict['4'], [width, height], check_size, 1 + delay_num)
     print('battle finish')
     return None
@@ -331,7 +359,7 @@ if __name__ == '__main__':
     wb = xlrd.open_workbook('strategy.xlsx')
     settings = wb.sheet_by_name('Settings')
 
-    resolution = float(settings.cell(1, 1).value)
+    display_resolution = float(settings.cell(1, 1).value)
     repeat_num = int(settings.cell(2, 1).value)
     apple = int(settings.cell(3, 1).value)
 
@@ -339,31 +367,32 @@ if __name__ == '__main__':
     equipment = str(settings.cell(5, 1).value)
 
     wait_time = float(settings.cell(6, 1).value)
-    delay_num = float(settings.cell(7, 1).value)
+    delay_number = float(settings.cell(7, 1).value)
 
     fight_turn = int(settings.cell(8, 1).value)
 
     hwnd = basic_function.get_handle(settings.cell(9, 1).value)
+    change_character = int(settings.cell(10, 1).value)
 
     left, bottom, right, top = win32gui.GetWindowRect(hwnd)
     hwnd_width = right - left
     hwnd_height = top - bottom
 
-    for i in range(repeat_num):
-        check_character(hwnd, hwnd_width, hwnd_height, character, equipment, resolution, delay_num)
-        if i == 0:
-            basic_function.press_mouse(hwnd, press_dict['4'], [hwnd_width, hwnd_height], check_size, 3 + delay_num)
+    for repeat in range(repeat_num):
+        check_character(hwnd, hwnd_width, hwnd_height, character, equipment, display_resolution, delay_number)
+        if repeat == 0:
+            basic_function.press_mouse(hwnd, press_dict['4'], [hwnd_width, hwnd_height], check_size, 3 + delay_number)
         time.sleep(wait_time)
-        read_strategy(hwnd, hwnd_width, hwnd_height, resolution, delay_num, fight_turn)
-        if i < repeat_num - 1:
-            continue_attack(hwnd, True, hwnd_width, hwnd_height, delay_num)
+        read_strategy(hwnd, hwnd_width, hwnd_height, display_resolution, delay_number, fight_turn, change_character)
+        if repeat < repeat_num - 1:
+            continue_attack(hwnd, True, hwnd_width, hwnd_height, delay_number)
             if apple == 1:
-                check_apple(hwnd, hwnd_width, hwnd_height, resolution, True, delay_num)
+                check_apple(hwnd, hwnd_width, hwnd_height, display_resolution, True, delay_number)
             else:
-                check_apple(hwnd, hwnd_width, hwnd_height, resolution, False, delay_num)
+                check_apple(hwnd, hwnd_width, hwnd_height, display_resolution, False, delay_number)
             time.sleep(6)
             print("···············")
         else:
-            continue_attack(hwnd, False, hwnd_width, hwnd_height, delay_num)
+            continue_attack(hwnd, False, hwnd_width, hwnd_height, delay_number)
             print("Loop terminated")
     sys.exit()

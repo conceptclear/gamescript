@@ -46,15 +46,17 @@ def slide_mouse(handle, position, handle_size, check_size, delay_time):
     p_position = win32api.MAKELONG(point1_x, point1_y)
     u_position = win32api.MAKELONG(point2_x, point2_y)
     win32gui.SendMessage(handle, win32con.WM_ACTIVATE, win32con.WA_ACTIVE, 0)
-    win32gui.PostMessage(handle, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, p_position)
+    win32gui.SendMessage(handle, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, p_position)
     time.sleep(0.2)
     steps = point1_y - point2_y
     for i in range(steps):
-        win32gui.PostMessage(handle, win32con.WM_MOUSEMOVE, win32con.MK_LBUTTON, win32api.MAKELONG(point1_x, point1_y-i))
+        win32gui.SendMessage(handle, win32con.WM_MOUSEMOVE,
+                             win32con.MK_LBUTTON, win32api.MAKELONG(point1_x, point1_y-i))
         time.sleep(0.01)
-    win32gui.PostMessage(handle, win32con.WM_LBUTTONUP, 0, u_position)
+    win32gui.SendMessage(handle, win32con.WM_LBUTTONUP, 0, u_position)
     time.sleep(delay_time + rand_time())
     return None
+
 
 def get_child_windows(parent):
     """get child handle"""
