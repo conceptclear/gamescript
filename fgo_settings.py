@@ -396,3 +396,4 @@ if __name__ == '__main__':
             continue_attack(hwnd, False, hwnd_width, hwnd_height, delay_number)
             print("Loop terminated")
     sys.exit()
+
