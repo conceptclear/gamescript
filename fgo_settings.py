@@ -152,9 +152,9 @@ def check_character(handle, width, height, character, equipment, resolution, del
     """find character in assist"""
     basic_function.get_bitmap(handle, width, height, resolution)
     if character == str(0.0):
-        print("don't need to find character")
+        print("don't need to find 助战从者")
         if equipment == str(0.0):
-            print("don't need to find equipment")
+            print("don't need to find 礼装")
             basic_function.press_mouse(handle, press_dict['T'], [width, height], check_size, 3 + delay_num)
             return None
         else:
@@ -187,22 +187,22 @@ def check_character(handle, width, height, character, equipment, resolution, del
 
         while 1:
             count = 0
-            while max_val < 0.95 and count < 10:
+            while max_val < 0.90 and count < 10:
                 count += 1
                 basic_function.slide_mouse(handle, press_dict['up'], [width, height], check_size, 1.5 + delay_num)
                 basic_function.get_bitmap(handle, width, height, resolution)
                 [min_val, max_val, min_loc, max_loc, th, tw] = basic_function.template_matching('img_check.bmp',
                                                                                                 'source/' + character + '.jpg',
                                                                                                 check_size, 0)
-            if max_val >= 0.95:
+            if max_val >= 0.90:
                 print('OK')
                 if equipment == str(0.0):
-                    print("don't need to find equipment")
+                    print("don't need to find 礼装")
                     break
                 else:
                     print("checking " + equipment)
-                    if max_loc[1] + th + 70 > 720:
-                        print("equipment did not match")
+                    if max_loc[1] + th + 80 > 720:
+                        print("礼装 did not match")
                         basic_function.slide_mouse(handle, press_dict['up'], [width, height], check_size, 1.5 + delay_num)
                         max_val = 0
                         continue
@@ -210,16 +210,17 @@ def check_character(handle, width, height, character, equipment, resolution, del
                         'img_check.bmp',
                         'source/' + equipment + '.jpg',
                         check_size,
-                        [max_loc[1] + th,
+                        [max_loc[1] + int(th/2),
                          max_loc[
-                             1] + th + 70,
-                         max_loc[0] - 20,
+                             1] + th + 80,
+                         max_loc[0] - 220,
                          max_loc[
-                             0] + tw + 20])
+                             0]])
                     if max_val1 >= 0.95:
                         break
                     else:
-                        print("equipment did not match")
+                        print("礼装 did not match")
+                        print("finding " + character)
                         basic_function.slide_mouse(handle, press_dict['up'], [width, height], check_size, 1.5 + delay_num)
                         max_val = 0
                         count += 1
@@ -229,6 +230,7 @@ def check_character(handle, width, height, character, equipment, resolution, del
                                                        1 + delay_num)
                             basic_function.press_mouse(handle, press_dict['H'], [width, height], check_size,
                                                        1 + delay_num)
+                            count = 0
                         continue
             else:
                 # time.sleep(10)
