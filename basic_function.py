@@ -32,6 +32,7 @@ def press_mouse(handle, position, handle_size, check_size, delay_time):
     p_position = win32api.MAKELONG(point_x, point_y)
     win32gui.SendMessage(handle, win32con.WM_ACTIVATE, win32con.WA_ACTIVE, 0)
     win32gui.SendMessage(handle, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, p_position)
+    time.sleep(0.2)
     win32gui.SendMessage(handle, win32con.WM_LBUTTONUP, win32con.MK_LBUTTON, p_position)
     time.sleep(delay_time + rand_time())
     return None

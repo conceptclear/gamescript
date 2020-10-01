@@ -291,7 +291,7 @@ def read_strategy(handle, width, height, resolution, delay_num, fight_turn, chan
                         basic_function.press_mouse(handle, press_dict['chara' + str(int(side.cell(13, 3).value))],
                                                    [width, height], check_size,
                                                    0.5 + delay_num)
-                        basic_function.press_mouse(handle, press_dict['change'], [width, height], check_size, 5 + delay_num)
+                        basic_function.press_mouse(handle, press_dict['change'], [width, height], check_size, 10 + delay_num)
                         print("character " + str(int(side.cell(13, 3).value)) + " change character " + str(int(side.cell(13, 2).value)))
                         for j in range(3):
                             if side.cell(14 + j, 1).value != 1:
