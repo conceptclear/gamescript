@@ -287,9 +287,9 @@ class Fgo:
         """find character in assist"""
         self.fgo_settings.emulator.get_bitmap()
         status = 0
-        if self.fgo_settings.character == str(0.0):
+        if self.fgo_settings.character == 0:
             self.logger.get_log().debug("不需要寻找助战从者")
-            if self.fgo_settings.equipment == str(0.0):
+            if self.fgo_settings.equipment == 0:
                 self.logger.get_log().debug("不需要寻找礼装")
                 self.logger.get_log().warning('不设置助战从者也不设置寻找礼装，则会默认点击第一个助战从者的位置，若开启筛选可能会出错')
                 self.fgo_settings.emulator.press_mouse_key('T', 3 + self.fgo_settings.delay_time)
@@ -300,7 +300,7 @@ class Fgo:
         else:
             self.fgo_settings.count_character = 0
             assist_pos = self.find_assist(self.fgo_settings.character, 0.9)
-            if self.fgo_settings.equipment == str(0.0):
+            if self.fgo_settings.equipment == 0:
                 self.logger.get_log().debug("不需要寻找礼装")
             else:
                 status = self.check_equipment(assist_pos)
