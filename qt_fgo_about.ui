@@ -6,45 +6,35 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>260</width>
-    <height>150</height>
+    <width>275</width>
+    <height>158</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>关于</string>
   </property>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>20</y>
-     <width>240</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>注意：需要将source文件夹，settings文件夹和执行文件放在一个目录下，并且目录中不能包含中文</string>
-   </property>
-   <property name="wordWrap">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>85</x>
-     <y>110</y>
-     <width>90</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>确定</string>
-   </property>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>注意：需要将source文件夹，settings文件夹和执行文件放在一个目录下，并且目录中不能包含中文</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string>确定</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections>

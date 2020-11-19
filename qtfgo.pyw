@@ -58,11 +58,11 @@ class WindowFgoMain(QtWidgets.QWidget, qt_fgo_main.Ui_MainWidget):
         self.textBrowser.ensureCursorVisible()
 
     def setcomboBox(self):
-        self.comboBox.addItem("fgosettings1")
-        self.comboBox.addItem("fgosettings2")
-        self.comboBox.addItem("fgosettings3")
-        self.comboBox.addItem("fgosettings4")
-        self.comboBox.addItem("fgosettings5")
+        self.comboBox.addItem("脚本1")
+        self.comboBox.addItem("脚本2")
+        self.comboBox.addItem("脚本3")
+        self.comboBox.addItem("脚本4")
+        self.comboBox.addItem("脚本5")
 
     def change_fgo_settings_click(self):
         with open('settings/fgosettings' + str(self.comboBox.currentIndex() + 1) + '.json', 'r') as f_read:

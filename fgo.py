@@ -324,7 +324,7 @@ class Fgo:
                 self.continue_attack(True)
                 self.check_apple()
                 time.sleep(6)
-                self.logger.get_log().debug('完成刷本' + str(repeat) + '次')
+                self.logger.get_log().debug('完成刷本' + str(repeat+1) + '次')
             else:
                 self.continue_attack(False)
                 self.logger.get_log().debug('完成刷本，关闭脚本')
