@@ -60,6 +60,7 @@ class Fgo:
     """
     Fgo class for automation
     """
+
     def __init__(self, settings_name):
         with open(settings_name, 'r') as f_read:
             self.fgo_settings = dict2fgobasic(json.load(f_read))
@@ -308,8 +309,10 @@ class Fgo:
                     assist_pos = self.find_assist(self.fgo_settings.character, 0.9)
                     status = self.check_equipment(assist_pos)
 
-        point_x = int((assist_pos[status][0] + assist_pos[status][1]) / 2)
-        point_y = int((assist_pos[status][2] + assist_pos[status][3]) / 2)
+        point_x = int((assist_pos[status][0] + assist_pos[status][1]) / 2 *
+                      self.fgo_settings.emulator.width / self.fgo_settings.emulator.mouse_dict['width'])
+        point_y = int((assist_pos[status][2] + assist_pos[status][3]) / 2 *
+                      self.fgo_settings.emulator.height / self.fgo_settings.emulator.mouse_dict['height'])
         self.fgo_settings.emulator.press_mouse(point_x, point_y, 3 + self.fgo_settings.delay_time)
         return None
 
@@ -324,7 +327,7 @@ class Fgo:
                 self.continue_attack(True)
                 self.check_apple()
                 time.sleep(6)
-                self.logger.get_log().debug('完成刷本' + str(repeat+1) + '次')
+                self.logger.get_log().debug('完成刷本' + str(repeat + 1) + '次')
             else:
                 self.continue_attack(False)
                 self.logger.get_log().debug('完成刷本，关闭脚本')
