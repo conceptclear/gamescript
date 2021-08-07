@@ -2,6 +2,7 @@ import sys
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.Qt import QThread, QMutex
 from PyQt5.QtGui import QIntValidator
+from PyQt5.QtGui import QIcon
 import qt_fgo_main
 import qt_fgo_settings
 import qt_fgo_about
@@ -37,6 +38,7 @@ class WindowFgoMain(QtWidgets.QWidget, qt_fgo_main.Ui_MainWidget):
     def __init__(self):
         super(WindowFgoMain, self).__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon('source/favicon.ico'))
         self.dialog_fgo_settings = WindowFgoSettings()
         self.dialog_fgo_about = WindowFgoAbout()
         self.dialog_fgo_fight = WindowFgoFight()
@@ -111,6 +113,7 @@ class WindowFgoSettings(QtWidgets.QWidget, qt_fgo_settings.Ui_Dialog):
         self.comboBox_3.addItem('梅林')
         self.comboBox_3.addItem('花嫁尼禄')
         self.comboBox_3.addItem('玉藻前')
+        self.comboBox_3.addItem('阿尔托莉雅·卡斯特')
         self.comboBox_3.addItem('无')
         self.comboBox_4.addItem('午茶学妹')
         self.comboBox_4.addItem('小达芬奇')
@@ -169,8 +172,10 @@ class WindowFgoSettings(QtWidgets.QWidget, qt_fgo_settings.Ui_Dialog):
             self.comboBox_3.setCurrentIndex(3)
         elif fgo_settings['character'] == 'fox':
             self.comboBox_3.setCurrentIndex(4)
-        elif str(fgo_settings['character']) == '0':
+        elif fgo_settings['character'] == 'CAB':
             self.comboBox_3.setCurrentIndex(5)
+        elif str(fgo_settings['character']) == '0':
+            self.comboBox_3.setCurrentIndex(6)
         else:
             sys.exit()
 
@@ -228,6 +233,8 @@ class WindowFgoSettings(QtWidgets.QWidget, qt_fgo_settings.Ui_Dialog):
         elif self.comboBox_3.currentIndex() == 4:
             fgo_settings['character'] = 'fox'
         elif self.comboBox_3.currentIndex() == 5:
+            fgo_settings['character'] = 'CAB'
+        elif self.comboBox_3.currentIndex() == 6:
             fgo_settings['character'] = 0
         else:
             sys.exit()
