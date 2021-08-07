@@ -25,14 +25,13 @@ class FgoBasic:
     side_wait_time: 三面释放宝具后等待时间
     emulator_name: 模拟器窗口名称
     use_rand_time: 使用随机延迟时间
-    fightfile: 读取战斗按键序列的位置
+    fight: 读取战斗按键序列的位置
     fight_list: 战斗按键序列
     count_character: 检测助战角色拖动界面次数
-    attack_in_advance:预先攻击敌方角色（俗称垫刀）
     """
 
     def __init__(self, repeat_num, apple, character, equipment, wait_time, delay_time,
-                 fight_turn, side_wait_time, emulator_name, use_rand_time,change_character,fightfile,attack_in_advance ):
+                 fight_turn, side_wait_time, emulator_name, use_rand_time, change_character, fight):
         self.repeat_num = repeat_num
         self.apple = apple
         self.character = character
@@ -43,21 +42,13 @@ class FgoBasic:
         self.side_wait_time = side_wait_time
         self.emulator = emulator.Emulator(emulator_name, fgo_dict.keyboard_key, fgo_dict.mouse_key, use_rand_time)
         self.change_character = change_character
-        self.fightfile = fightfile
+        self.fight = fight
         self.fight_list = self.read_fight()
         self.count_character = 0
-        self.attack_in_advance = attack_in_advance               
 
     def read_fight(self):
-        fight_text = codecs.open(self.fightfile, 'r', encoding='utf-8').read()
-        json_text = json.load(open(self.fightfile))# dict
-        for i in range(self.fight_turn):
-            row = []
-            for key in dict.keys(json_text):
-                col = json_text[key]
-                row.append(col)
-        print(row)
-        return row
+        fight_text = codecs.open(self.fight, 'r', encoding='utf-8').read()
+        return np.array(json.loads(fight_text))
 
     def save_fight(self):
         fight_text = self.fight_list.tolist()
@@ -194,9 +185,6 @@ class Fgo:
         return None
 
     def fight_change_character(self, side):
-        """
-        变更角色并对变更角色技能进行使用
-        """
         self.fgo_settings.emulator.press_mouse_key('S', 0.5 + self.fgo_settings.delay_time)
         if self.fgo_settings.change_character[1] > 3 or self.fgo_settings.change_character[1] < 1 \
                 or self.fgo_settings.change_character[2] > 6 or self.fgo_settings.change_character[2] < 4:
@@ -239,30 +227,15 @@ class Fgo:
     def set_fight(self):
         for battle in range(self.fgo_settings.fight_turn):
             self.logger.get_log().debug('开始第' + str(battle + 1) + '面的战斗')
-            time.sleep(self.fgo_settings.delay_time+1.0)
             for i in range(9):
                 self.character_skill(battle, i)
             for i in range(3):
                 self.master_skill(battle, i + 9)
-            if battle == self.fgo_settings.attack_in_advance-1:
-                self.fgo_settings.emulator.press_mouse_key("1",3+self.fgo_settings.delay_time)
-                self.fgo_settings.emulator.press_mouse_key('J',3+ self.fgo_settings.delay_time)
-                self.rand_card(2)
-                num_spell_card=2
-                for i in range(3):
-                    num_spell_card+=self.spell_card(battle,i+15)
-                if num_spell_card == 3:
-                    self.logger.get_log().debug("垫刀success")
-                
-            
-            else:
-                num_spell_card = 0
-                self.fgo_settings.emulator.press_mouse_key('J', 3 + self.fgo_settings.delay_time)
-            
-                for i in range(3):
-                    num_spell_card+=self.spell_card(battle,i + 15 )
-                self.rand_card(3-num_spell_card)
-
+            num_spell_card = 0
+            self.fgo_settings.emulator.press_mouse_key('J', 3 + self.fgo_settings.delay_time)
+            for i in range(3):
+                num_spell_card += self.spell_card(battle, i + 15)
+            self.rand_card(3 - num_spell_card)
             time.sleep(self.fgo_settings.side_wait_time[battle])
         for i in range(5):
             self.fgo_settings.emulator.press_mouse_key('4', 1 + self.fgo_settings.delay_time)
@@ -374,8 +347,7 @@ def fgobasic2dict(fgobasic):
         'change_character': fgobasic.change_character,
         "emulator_name": fgobasic.emulator.name,
         'use_rand_time': fgobasic.emulator.use_rand_time,
-        'fight': fgobasic.fight,
-        'attack_in_advance':fgobasic.attack_in_advance
+        'fight': fgobasic.fight
     }
 
 
@@ -392,8 +364,7 @@ def dict2fgobasic(dict):
         dict['emulator_name'],
         dict['use_rand_time'],
         dict['change_character'],
-        dict['fight'],
-        dict['attack_in_advance']
+        dict['fight']
     )
 
 
