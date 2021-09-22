@@ -35,7 +35,7 @@ class Emulator:
         self.name = name
         self.parent = 0
         self.handle = 0
-        self.get_handle(name)
+        self.get_handle()
         self.use_rand_time = use_rand_time
         self.keyboard_dict = keyboard_dict
         self.mouse_dict = mouse_dict
@@ -45,13 +45,17 @@ class Emulator:
         self.resolution = 0
         self.get_resolution()
 
-    def get_handle(self, name):
+    def get_handle(self):
         """get handle of execute program"""
-        self.parent = win32gui.FindWindow(None, name)
+        self.parent = win32gui.FindWindow(None, self.name)
         if self.parent == 0:
-            self.logger.get_log().error('错误的窗口句柄！无法找到' + name)
+            self.logger.get_log().error('错误的窗口句柄！无法找到' + self.name)
             return False
-        self.get_child_windows()
+        if self.name == '雷电模拟器':
+            self.get_child_windows()
+        else:
+            self.logger.get_log().error('目前不支持该模拟器，请静待更新')
+            return False
         return None
 
     def get_child_windows(self):

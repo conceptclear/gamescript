@@ -1,9 +1,7 @@
 import fgo_dict
 import emulator
 import logger
-import numpy as np
 import json
-import codecs
 import random
 import sys
 import time
@@ -22,16 +20,15 @@ class FgoBasic:
     delay_time: 延迟按键时间（针对于运算速度比较慢的电脑做的动态调整）
     fight_turn: 战斗面数
     change_character: 使用换人礼装，为一个list，第0位确定第几面换人，第1位为前三个角色中一个，第2位为后三个角色中一个
-    side_wait_time: 三面释放宝具后等待时间
+    round_wait_time: 三面释放宝具后等待时间
     emulator_name: 模拟器窗口名称
     use_rand_time: 使用随机延迟时间
-    fight: 读取战斗按键序列的位置
-    fight_list: 战斗按键序列
+    fight: 按键序列
     count_character: 检测助战角色拖动界面次数
     """
 
     def __init__(self, repeat_num, apple, character, equipment, wait_time, delay_time,
-                 fight_turn, side_wait_time, emulator_name, use_rand_time, change_character, fight):
+                 fight_turn, round_wait_time, emulator_name, use_rand_time, change_character, fight):
         self.repeat_num = repeat_num
         self.apple = apple
         self.character = character
@@ -39,21 +36,11 @@ class FgoBasic:
         self.wait_time = wait_time
         self.delay_time = delay_time
         self.fight_turn = fight_turn
-        self.side_wait_time = side_wait_time
+        self.round_wait_time = round_wait_time
         self.emulator = emulator.Emulator(emulator_name, fgo_dict.keyboard_key, fgo_dict.mouse_key, use_rand_time)
         self.change_character = change_character
         self.fight = fight
-        self.fight_list = self.read_fight()
         self.count_character = 0
-
-    def read_fight(self):
-        fight_text = codecs.open(self.fight, 'r', encoding='utf-8').read()
-        return np.array(json.loads(fight_text))
-
-    def save_fight(self):
-        fight_text = self.fight_list.tolist()
-        json.dump(fight_text, codecs.open(self.fight, 'w', encoding='utf-8'),
-                  separators=(',', ':'), sort_keys=True, indent=4)
 
 
 class Fgo:
@@ -73,7 +60,7 @@ class Fgo:
         :return:
         """
         with open(settings_name, 'w') as f_write:
-            json.dump(fgobasic2dict(self.fgo_settings), f_write)
+            json.dump(fgobasic2dict(self.fgo_settings), f_write, sort_keys=True, indent=4, separators=(',', ': '))
 
     def rand_card(self, card_num):
         """choose 2 cards in 5 cards"""
@@ -86,9 +73,9 @@ class Fgo:
     def continue_attack(self, action):
         """check whether continue attacking"""
         if not action:
-            self.fgo_settings.emulator.press_mouse_key('E', 3 + self.fgo_settings.delay_time)
+            self.fgo_settings.emulator.press_mouse_key('E', 5 + self.fgo_settings.delay_time)
         else:
-            self.fgo_settings.emulator.press_mouse_key('H', 3 + self.fgo_settings.delay_time)
+            self.fgo_settings.emulator.press_mouse_key('H', 5 + self.fgo_settings.delay_time)
         return None
 
     def check_apple(self):
@@ -107,6 +94,11 @@ class Fgo:
                 self.logger.get_log().debug('吃银苹果')
                 self.fgo_settings.emulator.press_mouse_key('P', 1 + self.fgo_settings.delay_time)
                 self.fgo_settings.emulator.press_mouse_key('H', 2 + self.fgo_settings.delay_time)
+            elif self.fgo_settings.apple == 3:
+                self.logger.get_log().debug('吃铜苹果')
+                self.fgo_settings.emulator.slide_mouse('up1', 'up2', 1.5 + self.fgo_settings.delay_time)
+                self.fgo_settings.emulator.press_mouse_key('P', 1 + self.fgo_settings.delay_time)
+                self.fgo_settings.emulator.press_mouse_key('H', 2 + self.fgo_settings.delay_time)
             elif self.fgo_settings.apple == 1000:
                 self.logger.get_log().debug('吃彩苹果')
                 self.fgo_settings.emulator.press_mouse_key('L', 1 + self.fgo_settings.delay_time)
@@ -122,69 +114,72 @@ class Fgo:
             sys.exit()
         return None
 
-    def skill_check(self, side, skill_pos, start_pos):
+    def character_skill(self, fight_round, operation):
         """
-        :param side: 战斗面数
-        :param skill_pos: 释放技能位置
-        :param start_pos: 起始技能
+        :param fight_round: 战斗面数
+        :param operation: 操作编号
         :return: None
         """
-        if self.fgo_settings.fight_list[side][skill_pos] == 1:
-            self.fgo_settings.emulator.press_mouse_key(chr(start_pos + skill_pos), 3 + self.fgo_settings.delay_time)
-        elif self.fgo_settings.fight_list[side][skill_pos] > 7 \
-                or self.fgo_settings.fight_list[side][skill_pos] < 0:
+        if self.fgo_settings.fight[fight_round]["skill"][operation]["object"] == 1:
+            self.fgo_settings.emulator.press_mouse_key(
+                self.fgo_settings.fight[fight_round]["skill"][operation]["button"],
+                self.fgo_settings.fight[fight_round]["skill"][operation]["delay_time"]
+                + self.fgo_settings.delay_time)
+        elif self.fgo_settings.fight[fight_round]["skill"][operation]["object"] > 7 \
+                or self.fgo_settings.fight[fight_round]["skill"][operation]["object"] < 0:
             self.logger.get_log().error('技能选择释放对象出错')
             sys.exit()
-        elif self.fgo_settings.fight_list[side][skill_pos] > 4:
-            self.fgo_settings.emulator.press_mouse_key(chr(start_pos + skill_pos), 0.5 + self.fgo_settings.delay_time)
-            self.fgo_settings.emulator.press_mouse_key(chr(74 + self.fgo_settings.fight_list[side][skill_pos]),
-                                                       3 + self.fgo_settings.delay_time)
+        elif self.fgo_settings.fight[fight_round]["skill"][operation]["object"] > 4:
+            self.fgo_settings.emulator.press_mouse_key(
+                self.fgo_settings.fight[fight_round]["skill"][operation]["button"],
+                0.5 + self.fgo_settings.delay_time)
+            self.fgo_settings.emulator.press_mouse_key(
+                chr(74 + self.fgo_settings.fight[fight_round]["skill"][operation]["object"]),
+                self.fgo_settings.fight[fight_round]["skill"][operation]["delay_time"]
+                + self.fgo_settings.delay_time)
         else:
-            self.fgo_settings.emulator.press_mouse_key(chr(47 + self.fgo_settings.fight_list[side][skill_pos]),
-                                                       0.5 + self.fgo_settings.delay_time)
-            self.fgo_settings.emulator.press_mouse_key(chr(start_pos + skill_pos), 3 + self.fgo_settings.delay_time)
+            self.fgo_settings.emulator.press_mouse_key(
+                chr(47 + self.fgo_settings.fight[fight_round]["skill"][operation]["object"]),
+                0.5 + self.fgo_settings.delay_time)
+            self.fgo_settings.emulator.press_mouse_key(
+                self.fgo_settings.fight[fight_round]["skill"][operation]["button"],
+                self.fgo_settings.fight[fight_round]["skill"][operation]["delay_time"]
+                + self.fgo_settings.delay_time)
         return None
 
-    def character_skill(self, side, skill_pos):
-        """
-        角色技能
-        :param side: 战斗面数
-        :param skill_pos: 技能位置
-        :return: None
-        """
-        if self.fgo_settings.fight_list[side][skill_pos] == 0:
-            return None
-        else:
-            self.skill_check(side, skill_pos, 65)
-        return None
-
-    def change_character_skill(self, side, skill_pos, character_pos):
-        if self.fgo_settings.fight_list[side][skill_pos] == 0:
-            return None
-        else:
-            self.skill_check(side, skill_pos, 50 + 3 * character_pos)
-        return None
-
-    def master_skill(self, side, skill_pos):
+    def master_skill(self, fight_round, operation):
         """
         御主技能
-        :param side: 战斗面数
-        :param skill_pos: 技能位置
+        :param fight_round: 战斗面数
+        :param operation: 操作编号
         :return: None
         """
-        if self.fgo_settings.change_character != 0 and skill_pos == 11:
-            if self.fgo_settings.change_character[0] == side + 1:
+        if self.fgo_settings.change_character != 0 and \
+                self.fgo_settings.fight[fight_round]["skill"][operation]["button"] == 'V':
+            this_fight_round = int(fight_round[-1])
+            if self.fgo_settings.change_character[0] == this_fight_round:
                 self.logger.get_log().debug('使用换人功能')
-                self.fight_change_character(side)
+                self.fight_change_character(fight_round, operation)
                 return None
-        if self.fgo_settings.fight_list[side][skill_pos] == 0:
+            else:
+                self.logger.get_log().error("已使用过换人")
+                sys.exit()
+        if self.fgo_settings.fight[fight_round]["skill"][operation]["object"] == 0:
             return None
         else:
             self.fgo_settings.emulator.press_mouse_key('S', 0.5 + self.fgo_settings.delay_time)
-            self.skill_check(side, skill_pos, 75)
+            self.character_skill(fight_round, operation)
         return None
 
-    def fight_change_character(self, side):
+    def skill_check(self, fight_round, operation):
+        if self.fgo_settings.fight[fight_round]["skill"][operation]["button"] == "T" or \
+                self.fgo_settings.fight[fight_round]["skill"][operation]["button"] == "U" or\
+                self.fgo_settings.fight[fight_round]["skill"][operation]["button"] == "V":
+            self.master_skill(fight_round, operation)
+        else:
+            self.character_skill(fight_round, operation)
+
+    def fight_change_character(self, fight_round, operation):
         self.fgo_settings.emulator.press_mouse_key('S', 0.5 + self.fgo_settings.delay_time)
         if self.fgo_settings.change_character[1] > 3 or self.fgo_settings.change_character[1] < 1 \
                 or self.fgo_settings.change_character[2] > 6 or self.fgo_settings.change_character[2] < 4:
@@ -195,48 +190,55 @@ class Fgo:
             'chara' + str(self.fgo_settings.change_character[1]), 0.5 + self.fgo_settings.delay_time)
         self.fgo_settings.emulator.press_mouse_key(
             'chara' + str(self.fgo_settings.change_character[2]), 0.5 + self.fgo_settings.delay_time)
-        self.fgo_settings.emulator.press_mouse_key('change', 10 + self.fgo_settings.delay_time)
+        self.fgo_settings.emulator.press_mouse_key(
+            'change', self.fgo_settings.fight[fight_round]["skill"][operation]["delay_time"]
+            + self.fgo_settings.delay_time)
         self.logger.get_log().debug('角色' + str(self.fgo_settings.change_character[2]) +
                                     '更换角色' + str(self.fgo_settings.change_character[1]))
-        for i in range(3):
-            self.change_character_skill(side, 12 + i, self.fgo_settings.change_character[1])
-        return None
 
-    def spell_card(self, side, skill_pos):
+    def spell_card(self, fight_round, operation):
         """
         释放宝具
-        :param side: 战斗面数
-        :param skill_pos: 技能位置
+        :param fight_round: 战斗面数
+        :param operation: 操作编号
         :return: 宝具释放次数
         """
-        if self.fgo_settings.fight_list[side][skill_pos] == 0:
+        if self.fgo_settings.fight[fight_round]["attack"][operation]["object"] == 0:
             return 0
         else:
-            if self.fgo_settings.fight_list[side][skill_pos] == 1:
-                self.fgo_settings.emulator.press_mouse_key(chr(60 + skill_pos), 0.5 + self.fgo_settings.delay_time)
-            elif self.fgo_settings.fight_list[side][skill_pos] > 4 \
-                    or self.fgo_settings.fight_list[side][skill_pos] < 0:
+            if self.fgo_settings.fight[fight_round]["attack"][operation]["object"] == 1:
+                self.fgo_settings.emulator.press_mouse_key(
+                    self.fgo_settings.fight[fight_round]["attack"][operation]["button"],
+                    self.fgo_settings.fight[fight_round]["attack"][operation]["delay_time"]
+                    + self.fgo_settings.delay_time)
+            elif self.fgo_settings.fight[fight_round]["attack"][operation]["object"] > 4 \
+                    or self.fgo_settings.fight[fight_round]["attack"][operation]["object"] < 0:
                 self.logger.get_log().error('释放宝具选取对象错误')
                 sys.exit()
             else:
-                self.fgo_settings.emulator.press_mouse_key(chr(61 + self.fgo_settings.fight_list[side][skill_pos]),
-                                                           0.5 + self.fgo_settings.delay_time)
-                self.fgo_settings.emulator.press_mouse_key(chr(60 + skill_pos), 3 + self.fgo_settings.delay_time)
+                self.fgo_settings.emulator.press_mouse_key(
+                    chr(47 + self.fgo_settings.fight[fight_round]["attack"][operation]["object"]),
+                    0.5 + self.fgo_settings.delay_time)
+                self.fgo_settings.emulator.press_mouse_key(
+                    self.fgo_settings.fight[fight_round]["attack"][operation]["object"],
+                    self.fgo_settings.fight[fight_round]["attack"][operation]["delay_time"]
+                    + self.fgo_settings.delay_time)
         return 1
 
     def set_fight(self):
         for battle in range(self.fgo_settings.fight_turn):
             self.logger.get_log().debug('开始第' + str(battle + 1) + '面的战斗')
-            for i in range(9):
-                self.character_skill(battle, i)
-            for i in range(3):
-                self.master_skill(battle, i + 9)
-            num_spell_card = 0
+            fight_round = "fight_round" + str(battle+1)
+            for i in range(len(self.fgo_settings.fight[fight_round]["skill"])):
+                operation = "operation" + str(i+1)
+                self.skill_check(fight_round, operation)
+            num_attack_card = len(self.fgo_settings.fight[fight_round]["attack"])
             self.fgo_settings.emulator.press_mouse_key('J', 3 + self.fgo_settings.delay_time)
-            for i in range(3):
-                num_spell_card += self.spell_card(battle, i + 15)
-            self.rand_card(3 - num_spell_card)
-            time.sleep(self.fgo_settings.side_wait_time[battle])
+            for i in range(num_attack_card):
+                operation = "operation" + str(i+1)
+                self.spell_card(fight_round, operation)
+            self.rand_card(3 - num_attack_card)
+            time.sleep(self.fgo_settings.round_wait_time[battle])
         for i in range(5):
             self.fgo_settings.emulator.press_mouse_key('4', 1 + self.fgo_settings.delay_time)
         self.logger.get_log().debug('战斗结束')
@@ -244,19 +246,33 @@ class Fgo:
 
     def find_assist(self, assist, threshold):
         self.logger.get_log().debug('寻找' + assist)
-        assist_pos = self.fgo_settings.emulator.template_matching(
-            'img_check.bmp', 'source/' + assist + '.jpg', threshold, 0)
+        if assist != "CAB":
+            assist_pos = self.fgo_settings.emulator.template_matching(
+                'img_check.bmp', 'source/' + assist + '.jpg', threshold, 0)
+        else:
+            assist_pos = self.fgo_settings.emulator.template_matching(
+                'img_check.bmp', 'source/' + assist + '1.jpg', threshold, 0)
+            if assist_pos.size == 0:
+                assist_pos = self.fgo_settings.emulator.template_matching(
+                    'img_check.bmp', 'source/' + assist + '2.jpg', threshold, 0)
         while 1:
             while assist_pos.size == 0 and self.fgo_settings.count_character < 10:
                 self.fgo_settings.count_character += 1
                 self.fgo_settings.emulator.slide_mouse('up1', 'up2', 1.5 + self.fgo_settings.delay_time)
                 self.fgo_settings.emulator.get_bitmap()
-                assist_pos = self.fgo_settings.emulator.template_matching(
-                    'img_check.bmp', 'source/' + assist + '.jpg', threshold, 0)
+                if assist != "CAB":
+                    assist_pos = self.fgo_settings.emulator.template_matching(
+                        'img_check.bmp', 'source/' + assist + '.jpg', threshold, 0)
+                else:
+                    assist_pos = self.fgo_settings.emulator.template_matching(
+                        'img_check.bmp', 'source/' + assist + '1.jpg', threshold, 0)
+                    if assist_pos.size == 0:
+                        assist_pos = self.fgo_settings.emulator.template_matching(
+                            'img_check.bmp', 'source/' + assist + '2.jpg', threshold, 0)
             if assist_pos.size != 0:
                 break
             else:
-                time.sleep(10)
+                time.sleep(5)
                 self.logger.get_log().debug('无法找到' + assist + '，刷新助战列表')
                 self.fgo_settings.emulator.press_mouse_key('5', 1 + self.fgo_settings.delay_time)
                 self.fgo_settings.emulator.press_mouse_key('H', 1 + self.fgo_settings.delay_time)
@@ -343,7 +359,7 @@ def fgobasic2dict(fgobasic):
         'wait_time': fgobasic.wait_time,
         'delay_time': fgobasic.delay_time,
         'fight_turn': fgobasic.fight_turn,
-        'side_wait_time': fgobasic.side_wait_time,
+        'round_wait_time': fgobasic.round_wait_time,
         'change_character': fgobasic.change_character,
         "emulator_name": fgobasic.emulator.name,
         'use_rand_time': fgobasic.emulator.use_rand_time,
@@ -360,7 +376,7 @@ def dict2fgobasic(dict):
         dict['wait_time'],
         dict['delay_time'],
         dict['fight_turn'],
-        dict['side_wait_time'],
+        dict['round_wait_time'],
         dict['emulator_name'],
         dict['use_rand_time'],
         dict['change_character'],
@@ -369,5 +385,5 @@ def dict2fgobasic(dict):
 
 
 if __name__ == '__main__':
-    fgo = Fgo('settings/fgosettings1.json')
+    fgo = Fgo('settings/fgo1.json')
     fgo.repeat_fight()
