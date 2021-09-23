@@ -6,671 +6,95 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
-    <height>650</height>
+    <width>762</width>
+    <height>560</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>战斗设置</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_6">
-   <item row="1" column="1">
+  <layout class="QGridLayout" name="gridLayout_5">
+   <item row="2" column="0">
     <widget class="QGroupBox" name="groupBox_2">
-     <property name="minimumSize">
-      <size>
-       <width>290</width>
-       <height>0</height>
-      </size>
-     </property>
      <property name="title">
-      <string/>
+      <string>攻击设置</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="1" colspan="2">
-       <widget class="QLabel" name="label_35">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>第二面</string>
+         <string>攻击选择：</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_36">
-        <property name="text">
-         <string>角色1技能1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QComboBox" name="comboBox_19">
+      <item row="0" column="1">
+       <widget class="QComboBox" name="comboBox_3">
         <property name="minimumSize">
          <size>
-          <width>150</width>
-          <height>20</height>
+          <width>90</width>
+          <height>0</height>
          </size>
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_37">
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_6">
         <property name="text">
-         <string>角色1技能2：</string>
+         <string>应用对象：</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="2">
-       <widget class="QComboBox" name="comboBox_20">
+      <item row="0" column="3">
+       <widget class="QComboBox" name="comboBox_4">
         <property name="minimumSize">
          <size>
-          <width>150</width>
-          <height>20</height>
+          <width>90</width>
+          <height>0</height>
          </size>
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_23">
+      <item row="0" column="4">
+       <widget class="QLabel" name="label_7">
         <property name="text">
-         <string>角色1技能3：</string>
+         <string>延迟时间：</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="2">
-       <widget class="QComboBox" name="comboBox_21">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
+      <item row="0" column="5">
+       <widget class="QLineEdit" name="lineEdit_2"/>
       </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="label_21">
+      <item row="0" column="6">
+       <widget class="QLabel" name="label_9">
         <property name="text">
-         <string>角色2技能1：</string>
+         <string>战斗面：</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="2">
-       <widget class="QComboBox" name="comboBox_22">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
+      <item row="0" column="7">
+       <widget class="QComboBox" name="comboBox_6"/>
       </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="label_38">
+      <item row="0" column="8">
+       <widget class="QPushButton" name="pushButton_5">
         <property name="text">
-         <string>角色2技能2：</string>
+         <string>插入</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="2">
-       <widget class="QComboBox" name="comboBox_23">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="label_22">
+      <item row="0" column="9">
+       <widget class="QPushButton" name="pushButton_6">
         <property name="text">
-         <string>角色2技能3：</string>
+         <string>删除</string>
         </property>
        </widget>
       </item>
-      <item row="6" column="2">
-       <widget class="QComboBox" name="comboBox_24">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="label_33">
-        <property name="text">
-         <string>角色3技能1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="2">
-       <widget class="QComboBox" name="comboBox_25">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="0">
-       <widget class="QLabel" name="label_28">
-        <property name="text">
-         <string>角色3技能2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="2">
-       <widget class="QComboBox" name="comboBox_26">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="0">
-       <widget class="QLabel" name="label_29">
-        <property name="text">
-         <string>角色3技能3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="2">
-       <widget class="QComboBox" name="comboBox_27">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="0">
-       <widget class="QLabel" name="label_39">
-        <property name="text">
-         <string>御主技能1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="2">
-       <widget class="QComboBox" name="comboBox_28">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="0">
-       <widget class="QLabel" name="label_30">
-        <property name="text">
-         <string>御主技能2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="2">
-       <widget class="QComboBox" name="comboBox_29">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="12" column="0">
-       <widget class="QLabel" name="label_31">
-        <property name="text">
-         <string>御主技能3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="12" column="2">
-       <widget class="QComboBox" name="comboBox_30">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="13" column="0" colspan="2">
-       <widget class="QLabel" name="label_32">
-        <property name="text">
-         <string>更换角色技能1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="13" column="2">
-       <widget class="QComboBox" name="comboBox_31">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="14" column="0" colspan="2">
-       <widget class="QLabel" name="label_26">
-        <property name="text">
-         <string>更换角色技能2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="14" column="2">
-       <widget class="QComboBox" name="comboBox_32">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="15" column="0" colspan="2">
-       <widget class="QLabel" name="label_24">
-        <property name="text">
-         <string>更换角色技能3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="15" column="2">
-       <widget class="QComboBox" name="comboBox_33">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="16" column="0">
-       <widget class="QLabel" name="label_25">
-        <property name="text">
-         <string>宝具1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="16" column="2">
-       <widget class="QComboBox" name="comboBox_34">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="17" column="0">
-       <widget class="QLabel" name="label_34">
-        <property name="text">
-         <string>宝具2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="17" column="2">
-       <widget class="QComboBox" name="comboBox_35">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="18" column="0">
-       <widget class="QLabel" name="label_27">
-        <property name="text">
-         <string>宝具3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="18" column="2">
-       <widget class="QComboBox" name="comboBox_36">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
+      <item row="1" column="0" colspan="10">
+       <widget class="QTableWidget" name="tableWidget_2"/>
       </item>
      </layout>
     </widget>
    </item>
-   <item row="1" column="2">
-    <widget class="QGroupBox" name="groupBox_3">
-     <property name="minimumSize">
-      <size>
-       <width>290</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="title">
-      <string/>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_5">
-      <item row="0" column="1" colspan="2">
-       <widget class="QLabel" name="label_54">
-        <property name="text">
-         <string>第三面</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_55">
-        <property name="text">
-         <string>角色1技能1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QComboBox" name="comboBox_37">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_56">
-        <property name="text">
-         <string>角色1技能2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QComboBox" name="comboBox_38">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_42">
-        <property name="text">
-         <string>角色1技能3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="2">
-       <widget class="QComboBox" name="comboBox_39">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="label_40">
-        <property name="text">
-         <string>角色2技能1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2">
-       <widget class="QComboBox" name="comboBox_40">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="label_57">
-        <property name="text">
-         <string>角色2技能2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="2">
-       <widget class="QComboBox" name="comboBox_41">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="label_41">
-        <property name="text">
-         <string>角色2技能3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="2">
-       <widget class="QComboBox" name="comboBox_42">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="label_52">
-        <property name="text">
-         <string>角色3技能1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="2">
-       <widget class="QComboBox" name="comboBox_43">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="0">
-       <widget class="QLabel" name="label_47">
-        <property name="text">
-         <string>角色3技能2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="2">
-       <widget class="QComboBox" name="comboBox_44">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="0">
-       <widget class="QLabel" name="label_48">
-        <property name="text">
-         <string>角色3技能3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="2">
-       <widget class="QComboBox" name="comboBox_45">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="0">
-       <widget class="QLabel" name="label_58">
-        <property name="text">
-         <string>御主技能1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="2">
-       <widget class="QComboBox" name="comboBox_46">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="0">
-       <widget class="QLabel" name="label_49">
-        <property name="text">
-         <string>御主技能2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="2">
-       <widget class="QComboBox" name="comboBox_47">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="12" column="0">
-       <widget class="QLabel" name="label_50">
-        <property name="text">
-         <string>御主技能3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="12" column="2">
-       <widget class="QComboBox" name="comboBox_48">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="13" column="0" colspan="2">
-       <widget class="QLabel" name="label_51">
-        <property name="text">
-         <string>更换角色技能1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="13" column="2">
-       <widget class="QComboBox" name="comboBox_49">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="14" column="0" colspan="2">
-       <widget class="QLabel" name="label_45">
-        <property name="text">
-         <string>更换角色技能2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="14" column="2">
-       <widget class="QComboBox" name="comboBox_50">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="15" column="0" colspan="2">
-       <widget class="QLabel" name="label_43">
-        <property name="text">
-         <string>更换角色技能3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="15" column="2">
-       <widget class="QComboBox" name="comboBox_51">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="16" column="0">
-       <widget class="QLabel" name="label_44">
-        <property name="text">
-         <string>宝具1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="16" column="2">
-       <widget class="QComboBox" name="comboBox_52">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="17" column="0">
-       <widget class="QLabel" name="label_53">
-        <property name="text">
-         <string>宝具2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="17" column="2">
-       <widget class="QComboBox" name="comboBox_53">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="18" column="0">
-       <widget class="QLabel" name="label_46">
-        <property name="text">
-         <string>宝具3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="18" column="2">
-       <widget class="QComboBox" name="comboBox_54">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="0" column="0" colspan="3">
+   <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox_4">
      <property name="minimumSize">
       <size>
@@ -695,7 +119,87 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="0" colspan="3">
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>技能设置</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>技能选择：</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="comboBox">
+        <property name="minimumSize">
+         <size>
+          <width>90</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>应用对象：</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QComboBox" name="comboBox_2">
+        <property name="minimumSize">
+         <size>
+          <width>90</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>延时时间：</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QLineEdit" name="lineEdit"/>
+      </item>
+      <item row="0" column="6">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>战斗面：</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="7">
+       <widget class="QComboBox" name="comboBox_5"/>
+      </item>
+      <item row="0" column="8">
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="text">
+         <string>插入</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="9">
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="text">
+         <string>删除</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="10">
+       <widget class="QTableWidget" name="tableWidget"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="0">
     <widget class="QGroupBox" name="groupBox_5">
      <property name="minimumSize">
       <size>
@@ -724,337 +228,6 @@
      </layout>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QGroupBox" name="groupBox">
-     <property name="minimumSize">
-      <size>
-       <width>290</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="title">
-      <string/>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="1">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>第一面</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>角色1技能1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QComboBox" name="comboBox">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>角色1技能2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QComboBox" name="comboBox_2">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>角色1技能3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="2">
-       <widget class="QComboBox" name="comboBox_3">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="label_8">
-        <property name="text">
-         <string>角色2技能1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2">
-       <widget class="QComboBox" name="comboBox_4">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>角色2技能2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="2">
-       <widget class="QComboBox" name="comboBox_5">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>角色2技能3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="2">
-       <widget class="QComboBox" name="comboBox_6">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="label_11">
-        <property name="text">
-         <string>角色3技能1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="2">
-       <widget class="QComboBox" name="comboBox_7">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="0">
-       <widget class="QLabel" name="label_9">
-        <property name="text">
-         <string>角色3技能2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="2">
-       <widget class="QComboBox" name="comboBox_8">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="0">
-       <widget class="QLabel" name="label_10">
-        <property name="text">
-         <string>角色3技能3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="2">
-       <widget class="QComboBox" name="comboBox_9">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="0">
-       <widget class="QLabel" name="label_14">
-        <property name="text">
-         <string>御主技能1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="2">
-       <widget class="QComboBox" name="comboBox_10">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="0">
-       <widget class="QLabel" name="label_12">
-        <property name="text">
-         <string>御主技能2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="2">
-       <widget class="QComboBox" name="comboBox_11">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="12" column="0">
-       <widget class="QLabel" name="label_13">
-        <property name="text">
-         <string>御主技能3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="12" column="2">
-       <widget class="QComboBox" name="comboBox_12">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="13" column="0" colspan="2">
-       <widget class="QLabel" name="label_17">
-        <property name="text">
-         <string>更换角色技能1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="13" column="2">
-       <widget class="QComboBox" name="comboBox_13">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="14" column="0" colspan="2">
-       <widget class="QLabel" name="label_15">
-        <property name="text">
-         <string>更换角色技能2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="14" column="2">
-       <widget class="QComboBox" name="comboBox_14">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="15" column="0" colspan="2">
-       <widget class="QLabel" name="label_16">
-        <property name="text">
-         <string>更换角色技能3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="15" column="2">
-       <widget class="QComboBox" name="comboBox_15">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="16" column="0">
-       <widget class="QLabel" name="label_20">
-        <property name="text">
-         <string>宝具1：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="16" column="2">
-       <widget class="QComboBox" name="comboBox_16">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="17" column="0">
-       <widget class="QLabel" name="label_18">
-        <property name="text">
-         <string>宝具2：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="17" column="2">
-       <widget class="QComboBox" name="comboBox_17">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="18" column="0">
-       <widget class="QLabel" name="label_19">
-        <property name="text">
-         <string>宝具3：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="18" column="2">
-       <widget class="QComboBox" name="comboBox_18">
-        <property name="minimumSize">
-         <size>
-          <width>150</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
   </layout>
  </widget>
  <resources/>
@@ -1066,12 +239,12 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>315</x>
-     <y>655</y>
+     <x>334</x>
+     <y>526</y>
     </hint>
     <hint type="destinationlabel">
      <x>373</x>
-     <y>626</y>
+     <y>559</y>
     </hint>
    </hints>
   </connection>
@@ -1082,14 +255,118 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>559</x>
-     <y>660</y>
+     <x>742</x>
+     <y>526</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
-     <y>629</y>
+     <y>559</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox_5</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>Dialog</receiver>
+   <slot>round_change_skill()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>543</x>
+     <y>98</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>533</x>
+     <y>61</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox_6</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>Dialog</receiver>
+   <slot>round_change_attack()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>538</x>
+     <y>301</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>505</x>
+     <y>271</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>add_skill()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>619</x>
+     <y>98</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>611</x>
+     <y>60</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>delete_skill()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>715</x>
+     <y>98</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>675</x>
+     <y>60</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_5</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>add_attack()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>627</x>
+     <y>308</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>591</x>
+     <y>272</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_6</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>delete_attack()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>706</x>
+     <y>308</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>664</x>
+     <y>269</y>
     </hint>
    </hints>
   </connection>
  </connections>
+ <slots>
+  <slot>round_change_skill()</slot>
+  <slot>round_change_attack()</slot>
+  <slot>add_skill()</slot>
+  <slot>delete_skill()</slot>
+  <slot>add_attack()</slot>
+  <slot>delete_attack()</slot>
+ </slots>
 </ui>

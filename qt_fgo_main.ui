@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>694</width>
+    <width>735</width>
     <height>400</height>
    </rect>
   </property>
@@ -17,44 +17,9 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>FGO自动刷本脚本v2.1</string>
+   <string>FGO自动刷本脚本v3.0</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
-   <item row="0" column="0" colspan="2">
-    <widget class="QGroupBox" name="groupBox">
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="title">
-      <string/>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="text">
-         <string>FGO自动刷本脚本v2.1</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>edit by: conceptclear</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item row="1" column="0">
     <widget class="QGroupBox" name="groupBox_3">
      <property name="styleSheet">
@@ -77,6 +42,64 @@
      </layout>
     </widget>
    </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string/>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="text">
+         <string>开始</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="text">
+         <string>退出</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="2">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="text">
+         <string>FGO自动刷本脚本v3.0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>edit by: conceptclear</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item row="1" column="1">
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
@@ -86,17 +109,17 @@
       <item row="0" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>选取</string>
+         <string>脚本配置未选取</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="comboBox">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>20</height>
-         </size>
+       <widget class="QPushButton" name="pushButton_6">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>选取</string>
         </property>
        </widget>
       </item>
@@ -142,29 +165,6 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="0" colspan="2">
-    <widget class="QGroupBox" name="groupBox_4">
-     <property name="title">
-      <string/>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QPushButton" name="pushButton_4">
-        <property name="text">
-         <string>开始</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_5">
-        <property name="text">
-         <string>退出</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
   </layout>
  </widget>
  <resources/>
@@ -176,8 +176,8 @@
    <slot>change_fgo_settings_click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>336</x>
-     <y>152</y>
+     <x>715</x>
+     <y>174</y>
     </hint>
     <hint type="destinationlabel">
      <x>325</x>
@@ -192,8 +192,8 @@
    <slot>open_about()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>343</x>
-     <y>263</y>
+     <x>715</x>
+     <y>298</y>
     </hint>
     <hint type="destinationlabel">
      <x>336</x>
@@ -208,8 +208,8 @@
    <slot>start_script()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>150</x>
-     <y>308</y>
+     <x>169</x>
+     <y>380</y>
     </hint>
     <hint type="destinationlabel">
      <x>215</x>
@@ -224,8 +224,8 @@
    <slot>end_script()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>298</x>
-     <y>308</y>
+     <x>669</x>
+     <y>380</y>
     </hint>
     <hint type="destinationlabel">
      <x>243</x>
@@ -240,12 +240,28 @@
    <slot>change_fgo_fight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>398</x>
-     <y>202</y>
+     <x>715</x>
+     <y>236</y>
     </hint>
     <hint type="destinationlabel">
      <x>364</x>
      <y>224</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_6</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWidget</receiver>
+   <slot>file_open()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>682</x>
+     <y>96</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>538</x>
+     <y>95</y>
     </hint>
    </hints>
   </connection>
@@ -256,5 +272,6 @@
   <slot>start_script()</slot>
   <slot>end_script()</slot>
   <slot>change_fgo_fight()</slot>
+  <slot>file_open()</slot>
  </slots>
 </ui>

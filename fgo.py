@@ -220,7 +220,7 @@ class Fgo:
                     chr(47 + self.fgo_settings.fight[fight_round]["attack"][operation]["object"]),
                     0.5 + self.fgo_settings.delay_time)
                 self.fgo_settings.emulator.press_mouse_key(
-                    self.fgo_settings.fight[fight_round]["attack"][operation]["object"],
+                    self.fgo_settings.fight[fight_round]["attack"][operation]["button"],
                     self.fgo_settings.fight[fight_round]["attack"][operation]["delay_time"]
                     + self.fgo_settings.delay_time)
         return 1
