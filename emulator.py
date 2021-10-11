@@ -54,8 +54,8 @@ class Emulator:
         if self.name == '雷电模拟器':
             self.get_child_windows()
         else:
-            self.logger.get_log().error('目前不支持该模拟器，请静待更新')
-            return False
+            self.logger.get_log().warn('目前不支持该模拟器，不能保证没有问题')
+            self.get_child_windows()
         return None
 
     def get_child_windows(self):
@@ -180,5 +180,5 @@ class Emulator:
 
 
 if __name__ == '__main__':
-    a = Emulator('命运-冠位指定 - MuMu模拟器', fgo_dict.keyboard_key, fgo_dict.mouse_key, 1)
+    a = Emulator('雷电模拟器', fgo_dict.keyboard_key, fgo_dict.mouse_key, 1)
     a.get_bitmap()

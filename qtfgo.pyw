@@ -11,19 +11,18 @@ import qt_fgo_fight
 import fgo
 import json
 
-qmut_1 = QMutex()
-
 
 class Thread_1(QThread):
     def __init__(self, filename):
         super().__init__()
         self.filename = filename
+        self.qmut_1 = QMutex()
 
     def run(self):
-        qmut_1.lock()
+        self.qmut_1.lock()
         this_fgo_fight = fgo.Fgo(self.filename)
         this_fgo_fight.repeat_fight()
-        qmut_1.unlock()
+        self.qmut_1.unlock()
 
 
 class EmittingStream(QtCore.QObject):
@@ -42,6 +41,7 @@ class WindowFgoMain(QtWidgets.QWidget, qt_fgo_main.Ui_MainWidget):
         self.dialog_fgo_about = WindowFgoAbout()
         self.dialog_fgo_fight = WindowFgoFight()
         self.filename = None
+        self.stopstatus = False
         """
         self.setcomboBox()
         with open('settings/fgosettings1.json', 'r') as f_read:
@@ -358,7 +358,7 @@ class WindowFgoFight(QtWidgets.QWidget, qt_fgo_fight.Ui_Dialog):
             "角色1技能1": "A",
             "角色1技能2": "B",
             "角色1技能3": "C",
-            "角色2技能1":"D",
+            "角色2技能1": "D",
             "角色2技能2": "E",
             "角色2技能3": "F",
             "角色3技能1": "G",

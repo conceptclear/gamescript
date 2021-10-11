@@ -1,0 +1,116 @@
+{
+    "apple": 1,
+    "change_character": [
+        2,
+        3,
+        4
+    ],
+    "character": "CAB",
+    "delay_time": 0,
+    "emulator_name": "\u96f7\u7535\u6a21\u62df\u5668",
+    "equipment": 0,
+    "fight": {
+        "fight_round1": {
+            "attack": {
+                "operation1": {
+                    "button": "L",
+                    "delay_time": 1,
+                    "object": 1
+                }
+            },
+            "skill": {
+                "operation1": {
+                    "button": "A",
+                    "delay_time": 3,
+                    "object": 1
+                },
+                "operation2": {
+                    "button": "D",
+                    "delay_time": 3,
+                    "object": 1
+                },
+                "operation3": {
+                    "button": "I",
+                    "delay_time": 3,
+                    "object": 6
+                }
+            }
+        },
+        "fight_round2": {
+            "attack": {
+                "operation1": {
+                    "button": "L",
+                    "delay_time": 1,
+                    "object": 1
+                }
+            },
+            "skill": {
+                "operation1": {
+                    "button": "G",
+                    "delay_time": 3,
+                    "object": 1
+                },
+                "operation2": {
+                    "button": "H",
+                    "delay_time": 3,
+                    "object": 6
+                },
+                "operation3": {
+                    "button": "V",
+                    "delay_time": 5,
+                    "object": 1
+                },
+                "operation4": {
+                    "button": "G",
+                    "delay_time": 3,
+                    "object": 1
+                },
+                "operation5": {
+                    "button": "H",
+                    "delay_time": 3,
+                    "object": 5
+                },
+                "operation6": {
+                    "button": "I",
+                    "delay_time": 3,
+                    "object": 6
+                }
+            }
+        },
+        "fight_round3": {
+            "attack": {
+                "operation1": {
+                    "button": "K",
+                    "delay_time": 1,
+                    "object": 1
+                }
+            },
+            "skill": {
+                "operation1": {
+                    "button": "B",
+                    "delay_time": 3,
+                    "object": 1
+                },
+                "operation2": {
+                    "button": "C",
+                    "delay_time": 3,
+                    "object": 1
+                },
+                "operation3": {
+                    "button": "T",
+                    "delay_time": 3,
+                    "object": 1
+                }
+            }
+        }
+    },
+    "fight_turn": 3,
+    "repeat_num": 150,
+    "round_wait_time": [
+        29,
+        29,
+        29
+    ],
+    "use_rand_time": 1,
+    "wait_time": 17
+}
