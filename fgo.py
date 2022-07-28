@@ -123,8 +123,10 @@ class Fgo:
         if self.fgo_settings.fight[fight_round]["skill"][operation]["object"] == 1:
             self.fgo_settings.emulator.press_mouse_key(
                 self.fgo_settings.fight[fight_round]["skill"][operation]["button"],
-                self.fgo_settings.fight[fight_round]["skill"][operation]["delay_time"]
-                + self.fgo_settings.delay_time)
+                0.5 + self.fgo_settings.delay_time)
+            self.fgo_settings.emulator.press_mouse_key(
+                'T', self.fgo_settings.fight[fight_round]["skill"][operation]["delay_time"]
+                     + self.fgo_settings.delay_time)
         elif self.fgo_settings.fight[fight_round]["skill"][operation]["object"] > 7 \
                 or self.fgo_settings.fight[fight_round]["skill"][operation]["object"] < 0:
             self.logger.get_log().error('技能选择释放对象出错')
@@ -135,16 +137,20 @@ class Fgo:
                 0.5 + self.fgo_settings.delay_time)
             self.fgo_settings.emulator.press_mouse_key(
                 chr(74 + self.fgo_settings.fight[fight_round]["skill"][operation]["object"]),
-                self.fgo_settings.fight[fight_round]["skill"][operation]["delay_time"]
-                + self.fgo_settings.delay_time)
+                0.5 + self.fgo_settings.delay_time)
+            self.fgo_settings.emulator.press_mouse_key(
+                'T', self.fgo_settings.fight[fight_round]["skill"][operation]["delay_time"]
+                     + self.fgo_settings.delay_time)
         else:
             self.fgo_settings.emulator.press_mouse_key(
                 chr(47 + self.fgo_settings.fight[fight_round]["skill"][operation]["object"]),
                 0.5 + self.fgo_settings.delay_time)
             self.fgo_settings.emulator.press_mouse_key(
                 self.fgo_settings.fight[fight_round]["skill"][operation]["button"],
-                self.fgo_settings.fight[fight_round]["skill"][operation]["delay_time"]
-                + self.fgo_settings.delay_time)
+                0.5 + self.fgo_settings.delay_time)
+            self.fgo_settings.emulator.press_mouse_key(
+                'T', self.fgo_settings.fight[fight_round]["skill"][operation]["delay_time"]
+                     + self.fgo_settings.delay_time)
         return None
 
     def master_skill(self, fight_round, operation):
@@ -173,7 +179,7 @@ class Fgo:
 
     def skill_check(self, fight_round, operation):
         if self.fgo_settings.fight[fight_round]["skill"][operation]["button"] == "T" or \
-                self.fgo_settings.fight[fight_round]["skill"][operation]["button"] == "U" or\
+                self.fgo_settings.fight[fight_round]["skill"][operation]["button"] == "U" or \
                 self.fgo_settings.fight[fight_round]["skill"][operation]["button"] == "V":
             self.master_skill(fight_round, operation)
         else:
@@ -192,7 +198,7 @@ class Fgo:
             'chara' + str(self.fgo_settings.change_character[2]), 0.5 + self.fgo_settings.delay_time)
         self.fgo_settings.emulator.press_mouse_key(
             'change', self.fgo_settings.fight[fight_round]["skill"][operation]["delay_time"]
-            + self.fgo_settings.delay_time)
+                      + self.fgo_settings.delay_time)
         self.logger.get_log().debug('角色' + str(self.fgo_settings.change_character[2]) +
                                     '更换角色' + str(self.fgo_settings.change_character[1]))
 
@@ -228,14 +234,14 @@ class Fgo:
     def set_fight(self):
         for battle in range(self.fgo_settings.fight_turn):
             self.logger.get_log().debug('开始第' + str(battle + 1) + '面的战斗')
-            fight_round = "fight_round" + str(battle+1)
+            fight_round = "fight_round" + str(battle + 1)
             for i in range(len(self.fgo_settings.fight[fight_round]["skill"])):
-                operation = "operation" + str(i+1)
+                operation = "operation" + str(i + 1)
                 self.skill_check(fight_round, operation)
             num_attack_card = len(self.fgo_settings.fight[fight_round]["attack"])
             self.fgo_settings.emulator.press_mouse_key('J', 3 + self.fgo_settings.delay_time)
             for i in range(num_attack_card):
-                operation = "operation" + str(i+1)
+                operation = "operation" + str(i + 1)
                 self.spell_card(fight_round, operation)
             self.rand_card(3 - num_attack_card)
             time.sleep(self.fgo_settings.round_wait_time[battle])
@@ -385,5 +391,5 @@ def dict2fgobasic(dict):
 
 
 if __name__ == '__main__':
-    fgo = Fgo('settings/fgo1.json')
+    fgo = Fgo('settings/莉莉丝wcab黑杯.json')
     fgo.repeat_fight()

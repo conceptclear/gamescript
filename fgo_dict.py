@@ -58,7 +58,7 @@ mouse_key = {
     '2': (294, 39),  # second enemy
     '3': (524, 39),  # third enemy
     '4': (1190, 678),  # enter (right bottom)
-    '5': (851, 130),  # refresh list
+    '5': (915, 130),  # refresh list
     'up1': (400, 480),
     'up2': (400, 300),  # draw up
     'chara1': (135, 352),  # character1 in change

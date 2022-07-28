@@ -119,6 +119,10 @@ class WindowFgoSettings(QtWidgets.QWidget, qt_fgo_settings.Ui_Dialog):
         self.comboBox_3.addItem('花嫁尼禄')
         self.comboBox_3.addItem('玉藻前')
         self.comboBox_3.addItem('阿尔托莉雅·卡斯特')
+        self.comboBox_3.addItem('光之高扬斯卡娅')
+        self.comboBox_3.addItem('奥伯龙')
+        self.comboBox_3.addItem('莱昂纳多·达·芬奇（Rider）')
+        self.comboBox_3.addItem('自定义')
         self.comboBox_3.addItem('无')
         self.comboBox_4.addItem('午茶学妹')
         self.comboBox_4.addItem('小达芬奇')
@@ -183,8 +187,16 @@ class WindowFgoSettings(QtWidgets.QWidget, qt_fgo_settings.Ui_Dialog):
             self.comboBox_3.setCurrentIndex(4)
         elif self.fgo_settings['character'] == 'CAB':
             self.comboBox_3.setCurrentIndex(5)
-        elif str(self.fgo_settings['character']) == '0':
+        elif self.fgo_settings['character'] == 'assfox':
             self.comboBox_3.setCurrentIndex(6)
+        elif self.fgo_settings['character'] == 'oberon':
+            self.comboBox_3.setCurrentIndex(7)
+        elif self.fgo_settings['character'] == 'davinci':
+            self.comboBox_3.setCurrentIndex(8)
+        elif self.fgo_settings['character'] == 'user':
+            self.comboBox_3.setCurrentIndex(9)
+        elif str(self.fgo_settings['character']) == '0':
+            self.comboBox_3.setCurrentIndex(10)
         else:
             sys.exit()
 
@@ -246,6 +258,14 @@ class WindowFgoSettings(QtWidgets.QWidget, qt_fgo_settings.Ui_Dialog):
         elif self.comboBox_3.currentIndex() == 5:
             self.fgo_settings['character'] = 'CAB'
         elif self.comboBox_3.currentIndex() == 6:
+            self.fgo_settings['character'] = 'assfox'
+        elif self.comboBox_3.currentIndex() == 7:
+            self.fgo_settings['character'] = 'oberon'
+        elif self.comboBox_3.currentIndex() == 8:
+            self.fgo_settings['character'] = 'davinci'
+        elif self.comboBox_3.currentIndex() == 9:
+            self.fgo_settings['character'] = 'user'
+        elif self.comboBox_3.currentIndex() == 10:
             self.fgo_settings['character'] = 0
         else:
             sys.exit()

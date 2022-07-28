@@ -94,10 +94,10 @@ class Ui_MainWidget(object):
 
     def retranslateUi(self, MainWidget):
         _translate = QtCore.QCoreApplication.translate
-        MainWidget.setWindowTitle(_translate("MainWidget", "FGO自动刷本脚本v3.0"))
+        MainWidget.setWindowTitle(_translate("MainWidget", "FGO自动刷本脚本v3.1"))
         self.pushButton_5.setText(_translate("MainWidget", "退出"))
         self.pushButton_4.setText(_translate("MainWidget", "开始"))
-        self.label.setText(_translate("MainWidget", "FGO自动刷本脚本v3.0"))
+        self.label.setText(_translate("MainWidget", "FGO自动刷本脚本v3.1"))
         self.label_3.setText(_translate("MainWidget", "edit by: conceptclear"))
         self.label_2.setText(_translate("MainWidget", "脚本配置未选取"))
         self.pushButton_6.setText(_translate("MainWidget", "选取"))

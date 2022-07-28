@@ -1,0 +1,85 @@
+{
+    "apple": 0,
+    "change_character": 0,
+    "character": "CAB",
+    "delay_time": 0,
+    "emulator_name": "\u96f7\u7535\u6a21\u62df\u5668",
+    "equipment": "bondage",
+    "fight": {
+        "fight_round1": {
+            "attack": {
+                "operation1": {
+                    "button": "K",
+                    "delay_time": 1,
+                    "object": 1
+                }
+            },
+            "skill": {
+                "operation1": {
+                    "button": "A",
+                    "delay_time": 1,
+                    "object": 1
+                },
+                "operation2": {
+                    "button": "D",
+                    "delay_time": 1,
+                    "object": 1
+                },
+                "operation3": {
+                    "button": "G",
+                    "delay_time": 1,
+                    "object": 1
+                },
+                "operation4": {
+                    "button": "E",
+                    "delay_time": 1,
+                    "object": 5
+                },
+                "operation5": {
+                    "button": "F",
+                    "delay_time": 1,
+                    "object": 5
+                },
+                "operation6": {
+                    "button": "H",
+                    "delay_time": 1,
+                    "object": 5
+                },
+                "operation7": {
+                    "button": "I",
+                    "delay_time": 1,
+                    "object": 5
+                }
+            }
+        },
+        "fight_round2": {
+            "attack": {
+                "operation1": {
+                    "button": "K",
+                    "delay_time": 1,
+                    "object": 1
+                }
+            },
+            "skill": {}
+        },
+        "fight_round3": {
+            "attack": {
+                "operation1": {
+                    "button": "K",
+                    "delay_time": 1,
+                    "object": 1
+                }
+            },
+            "skill": {}
+        }
+    },
+    "fight_turn": 3,
+    "repeat_num": 100,
+    "round_wait_time": [
+        29,
+        29,
+        38
+    ],
+    "use_rand_time": 1,
+    "wait_time": 17
+}
