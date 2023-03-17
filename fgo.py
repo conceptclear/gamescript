@@ -95,7 +95,13 @@ class Fgo:
                 self.fgo_settings.emulator.press_mouse_key('P', 1 + self.fgo_settings.delay_time)
                 self.fgo_settings.emulator.press_mouse_key('H', 2 + self.fgo_settings.delay_time)
             elif self.fgo_settings.apple == 3:
+                self.logger.get_log().debug('吃青苹果')
+                self.fgo_settings.emulator.slide_mouse('up1', 'up2', 1.5 + self.fgo_settings.delay_time)
+                self.fgo_settings.emulator.press_mouse_key('P', 1 + self.fgo_settings.delay_time)
+                self.fgo_settings.emulator.press_mouse_key('H', 2 + self.fgo_settings.delay_time)
+            elif self.fgo_settings.apple == 4:
                 self.logger.get_log().debug('吃铜苹果')
+                self.fgo_settings.emulator.slide_mouse('up1', 'up2', 1.5 + self.fgo_settings.delay_time)
                 self.fgo_settings.emulator.slide_mouse('up1', 'up2', 1.5 + self.fgo_settings.delay_time)
                 self.fgo_settings.emulator.press_mouse_key('P', 1 + self.fgo_settings.delay_time)
                 self.fgo_settings.emulator.press_mouse_key('H', 2 + self.fgo_settings.delay_time)
@@ -252,7 +258,7 @@ class Fgo:
 
     def find_assist(self, assist, threshold):
         self.logger.get_log().debug('寻找' + assist)
-        if assist != "CAB":
+        if assist != "CAB" and assist != "oberon":
             assist_pos = self.fgo_settings.emulator.template_matching(
                 'img_check.bmp', 'source/' + assist + '.jpg', threshold, 0)
         else:
@@ -266,7 +272,7 @@ class Fgo:
                 self.fgo_settings.count_character += 1
                 self.fgo_settings.emulator.slide_mouse('up1', 'up2', 1.5 + self.fgo_settings.delay_time)
                 self.fgo_settings.emulator.get_bitmap()
-                if assist != "CAB":
+                if assist != "CAB" and assist != "oberon":
                     assist_pos = self.fgo_settings.emulator.template_matching(
                         'img_check.bmp', 'source/' + assist + '.jpg', threshold, 0)
                 else:
@@ -347,8 +353,9 @@ class Fgo:
             self.set_fight()
             if repeat < self.fgo_settings.repeat_num - 1:
                 self.continue_attack(True)
+                time.sleep(3)
                 self.check_apple()
-                time.sleep(6)
+                time.sleep(10)
                 self.logger.get_log().debug('完成刷本' + str(repeat + 1) + '次')
             else:
                 self.continue_attack(False)

@@ -47,6 +47,9 @@ class Emulator:
 
     def get_handle(self):
         """get handle of execute program"""
+        if self.name == "鼠标选择":
+            self.get_windows_mouse()
+            return None
         self.parent = win32gui.FindWindow(None, self.name)
         if self.parent == 0:
             self.logger.get_log().error('错误的窗口句柄！无法找到' + self.name)
@@ -67,6 +70,15 @@ class Emulator:
         win32gui.EnumChildWindows(self.parent, lambda hwnd, param: param.append(hwnd), hwndChildList)
         self.logger.get_log().debug('窗口子句柄为:' + str(hwndChildList[0]))
         self.handle = hwndChildList[0]
+        return None
+
+    def get_windows_mouse(self):
+        """通过鼠标所在位置寻找句柄"""
+        self.logger.get_log().debug("5s之后根据鼠标所选择句柄执行操作")
+        time.sleep(5)
+        point = win32api.GetCursorPos()
+        self.handle = win32gui.WindowFromPoint(point)
+        self.logger.get_log().debug('窗口句柄为:' + str(self.handle))
         return None
 
     def get_resolution(self):

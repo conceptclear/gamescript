@@ -108,6 +108,7 @@ class WindowFgoSettings(QtWidgets.QWidget, qt_fgo_settings.Ui_Dialog):
         self.comboBox.addItem("不吃苹果")
         self.comboBox.addItem("吃金苹果")
         self.comboBox.addItem("吃银苹果")
+        self.comboBox.addItem("吃青苹果")
         self.comboBox.addItem("吃铜苹果")
         self.comboBox.addItem("吃彩苹果")
         self.comboBox_2.addItem('1')
@@ -161,8 +162,10 @@ class WindowFgoSettings(QtWidgets.QWidget, qt_fgo_settings.Ui_Dialog):
             self.comboBox.setCurrentIndex(2)
         elif self.fgo_settings['apple'] == 3:
             self.comboBox.setCurrentIndex(3)
-        elif self.fgo_settings['apple'] == 1000:
+        elif self.fgo_settings['apple'] == 4:
             self.comboBox.setCurrentIndex(4)
+        elif self.fgo_settings['apple'] == 1000:
+            self.comboBox.setCurrentIndex(5)
         else:
             self.comboBox.setCurrentIndex(0)
 
@@ -241,6 +244,8 @@ class WindowFgoSettings(QtWidgets.QWidget, qt_fgo_settings.Ui_Dialog):
         elif self.comboBox.currentIndex() == 3:
             self.fgo_settings['apple'] = 3
         elif self.comboBox.currentIndex() == 4:
+            self.fgo_settings['apple'] = 4
+        elif self.comboBox.currentIndex() == 5:
             self.fgo_settings['apple'] = 1000
         else:
             sys.exit()
