@@ -28,7 +28,7 @@ class FgoBasic:
     """
 
     def __init__(self, repeat_num, apple, character, equipment, wait_time, delay_time,
-                 fight_turn, round_wait_time, emulator_name, use_rand_time, change_character, fight):
+                 fight_turn, round_wait_time, emulator_name, use_rand_time, change_character, fight, screen_shot):
         self.repeat_num = repeat_num
         self.apple = apple
         self.character = character
@@ -37,8 +37,10 @@ class FgoBasic:
         self.delay_time = delay_time
         self.fight_turn = fight_turn
         self.round_wait_time = round_wait_time
-        self.emulator = emulator.Emulator(emulator_name, fgo_dict.keyboard_key, fgo_dict.mouse_key, use_rand_time)
+        self.emulator = emulator.Emulator(emulator_name, fgo_dict.keyboard_key, fgo_dict.mouse_key,
+                                          use_rand_time, screen_shot)
         self.change_character = change_character
+        self.screen_shot = screen_shot
         self.fight = fight
         self.count_character = 0
 
@@ -82,8 +84,8 @@ class Fgo:
         """check whether eat apple"""
         self.logger.get_log().debug('判断是否进入吃苹果界面')
         self.fgo_settings.emulator.get_bitmap()
-        result1 = self.fgo_settings.emulator.template_matching('img_check.bmp', 'source/apple.jpg', 0.9, 0)
-        result2 = self.fgo_settings.emulator.template_matching('img_check.bmp', 'source/assist.jpg', 0.9, 0)
+        result1 = self.fgo_settings.emulator.template_matching('img_check.png', 'source/apple.jpg', 0.9, 0)
+        result2 = self.fgo_settings.emulator.template_matching('img_check.png', 'source/assist.jpg', 0.9, 0)
         if result1.size:
             self.logger.get_log().debug('已进入吃苹果判断界面')
             if self.fgo_settings.apple == 1:
@@ -260,13 +262,13 @@ class Fgo:
         self.logger.get_log().debug('寻找' + assist)
         if assist != "CAB" and assist != "oberon":
             assist_pos = self.fgo_settings.emulator.template_matching(
-                'img_check.bmp', 'source/' + assist + '.jpg', threshold, 0)
+                'img_check.png', 'source/' + assist + '.jpg', threshold, 0)
         else:
             assist_pos = self.fgo_settings.emulator.template_matching(
-                'img_check.bmp', 'source/' + assist + '1.jpg', threshold, 0)
+                'img_check.png', 'source/' + assist + '1.jpg', threshold, 0)
             if assist_pos.size == 0:
                 assist_pos = self.fgo_settings.emulator.template_matching(
-                    'img_check.bmp', 'source/' + assist + '2.jpg', threshold, 0)
+                    'img_check.png', 'source/' + assist + '2.jpg', threshold, 0)
         while 1:
             while assist_pos.size == 0 and self.fgo_settings.count_character < 10:
                 self.fgo_settings.count_character += 1
@@ -274,13 +276,13 @@ class Fgo:
                 self.fgo_settings.emulator.get_bitmap()
                 if assist != "CAB" and assist != "oberon":
                     assist_pos = self.fgo_settings.emulator.template_matching(
-                        'img_check.bmp', 'source/' + assist + '.jpg', threshold, 0)
+                        'img_check.png', 'source/' + assist + '.jpg', threshold, 0)
                 else:
                     assist_pos = self.fgo_settings.emulator.template_matching(
-                        'img_check.bmp', 'source/' + assist + '1.jpg', threshold, 0)
+                        'img_check.png', 'source/' + assist + '1.jpg', threshold, 0)
                     if assist_pos.size == 0:
                         assist_pos = self.fgo_settings.emulator.template_matching(
-                            'img_check.bmp', 'source/' + assist + '2.jpg', threshold, 0)
+                            'img_check.png', 'source/' + assist + '2.jpg', threshold, 0)
             if assist_pos.size != 0:
                 break
             else:
@@ -299,7 +301,7 @@ class Fgo:
             if assist_pos[i][3] + 20 > 720:
                 continue
             equip_pos = self.fgo_settings.emulator.template_matching(
-                'img_check.bmp', 'source/' + self.fgo_settings.equipment + '.jpg', 0.95,
+                'img_check.png', 'source/' + self.fgo_settings.equipment + '.jpg', 0.95,
                 [assist_pos[i][2], assist_pos[i][3] + 20, assist_pos[i][0] - 220, assist_pos[i][0]])
             if equip_pos.size == 0:
                 continue
@@ -376,11 +378,14 @@ def fgobasic2dict(fgobasic):
         'change_character': fgobasic.change_character,
         "emulator_name": fgobasic.emulator.name,
         'use_rand_time': fgobasic.emulator.use_rand_time,
-        'fight': fgobasic.fight
+        'fight': fgobasic.fight,
+        'screen_shot': fgobasic.emulator.screenshot
     }
 
 
 def dict2fgobasic(dict):
+    if 'screen_shot' not in dict:
+        dict['screen_shot'] = 1
     return FgoBasic(
         dict['repeat_num'],
         dict['apple'],
@@ -393,7 +398,8 @@ def dict2fgobasic(dict):
         dict['emulator_name'],
         dict['use_rand_time'],
         dict['change_character'],
-        dict['fight']
+        dict['fight'],
+        dict['screen_shot']
     )
 
 

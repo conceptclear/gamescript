@@ -137,6 +137,8 @@ class WindowFgoSettings(QtWidgets.QWidget, qt_fgo_settings.Ui_Dialog):
         self.comboBox_7.addItem('4')
         self.comboBox_7.addItem('5')
         self.comboBox_7.addItem('6')
+        self.comboBox_8.addItem('0')
+        self.comboBox_8.addItem('1')
         self.lineEdit.setValidator(QIntValidator(0, 65535))
         self.lineEdit_2.setValidator(QIntValidator(0, 65535))
         self.lineEdit_4.setValidator(QIntValidator(0, 65535))
@@ -232,6 +234,16 @@ class WindowFgoSettings(QtWidgets.QWidget, qt_fgo_settings.Ui_Dialog):
             self.comboBox_6.setCurrentIndex(0)
             self.comboBox_7.setCurrentIndex(0)
 
+        if "screen_shot" not in self.fgo_settings:
+            self.fgo_settings["screen_shot"] = 0
+
+        if self.fgo_settings['screen_shot'] == 0:
+            self.comboBox_8.setCurrentIndex(0)
+        elif self.fgo_settings['screen_shot'] == 1:
+            self.comboBox_8.setCurrentIndex(1)
+        else:
+            sys.exit()
+
     def accept(self):
         self.fgo_settings['repeat_num'] = int(self.lineEdit.text())
 
@@ -310,6 +322,11 @@ class WindowFgoSettings(QtWidgets.QWidget, qt_fgo_settings.Ui_Dialog):
             self.fgo_settings['use_rand_time'] = 1
         else:
             self.fgo_settings['use_rand_time'] = 0
+
+        if self.comboBox_8.currentIndex() == 0:
+            self.fgo_settings['screen_shot'] = 0
+        elif self.comboBox_8.currentIndex() == 1:
+            self.fgo_settings["screen_shot"] = 1
 
         with open(self.filename, 'w') as f_write:
             json.dump(self.fgo_settings, f_write, sort_keys=True, indent=4, separators=(',', ': '))

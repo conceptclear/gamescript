@@ -1,3 +1,5 @@
+import sys
+
 import win32gui
 import logger
 import win32api
@@ -9,6 +11,8 @@ import win32ui
 import cv2 as cv
 import numpy as np
 import fgo_dict
+import mss
+import mss.tools
 
 
 class Emulator:
@@ -30,11 +34,12 @@ class Emulator:
         resolution: 显示放缩率
     """
 
-    def __init__(self, name, keyboard_dict, mouse_dict, use_rand_time):
+    def __init__(self, name, keyboard_dict, mouse_dict, use_rand_time, screen_shot):
         self.logger = logger.Logger(__name__)
         self.name = name
         self.parent = 0
         self.handle = 0
+        self.screenshot = screen_shot
         self.get_handle()
         self.use_rand_time = use_rand_time
         self.keyboard_dict = keyboard_dict
@@ -68,7 +73,9 @@ class Emulator:
             return False
         hwndChildList = []
         win32gui.EnumChildWindows(self.parent, lambda hwnd, param: param.append(hwnd), hwndChildList)
-        self.logger.get_log().debug('窗口子句柄为:' + str(hwndChildList[0]))
+        self.logger.get_log().debug('窗口子句柄共有:' + str(len(hwndChildList)))
+        for i in range(len(hwndChildList)):
+            self.logger.get_log().debug('窗口子句柄为:' + str(hwndChildList[i]))
         self.handle = hwndChildList[0]
         return None
 
@@ -79,6 +86,11 @@ class Emulator:
         point = win32api.GetCursorPos()
         self.handle = win32gui.WindowFromPoint(point)
         self.logger.get_log().debug('窗口句柄为:' + str(self.handle))
+        hwndChildList = []
+        win32gui.EnumChildWindows(self.handle, lambda hwnd, param: param.append(hwnd), hwndChildList)
+        self.logger.get_log().debug('窗口子句柄共有:' + str(len(hwndChildList)))
+        for i in range(len(hwndChildList)):
+            self.logger.get_log().debug('窗口子句柄为:' + str(hwndChildList[i]))
         return None
 
     def get_resolution(self):
@@ -90,25 +102,34 @@ class Emulator:
 
     def get_bitmap(self):
         """get background screenshot"""
-        width = int(self.width * self.resolution)
-        height = int(self.height * self.resolution)
+        if self.screenshot == 0:
+            width = int(self.width * self.resolution)
+            height = int(self.height * self.resolution)
 
-        hWndDC = win32gui.GetWindowDC(self.handle)
-        # device description table
-        mfcDC = win32ui.CreateDCFromHandle(hWndDC)
-        # memory device description table
-        saveDC = mfcDC.CreateCompatibleDC()
-        # create bitmap
-        saveBitMap = win32ui.CreateBitmap()
-        # set storage
-        saveBitMap.CreateCompatibleBitmap(mfcDC, width, height)
-        # set screenshot to storage
-        saveDC.SelectObject(saveBitMap)
-        # save bitmap to memory device description table
-        saveDC.BitBlt((0, 0), (width, height), mfcDC, (0, 0), win32con.SRCCOPY)
-        # save screenshot
-        self.logger.get_log().debug('对窗口截图')
-        saveBitMap.SaveBitmapFile(saveDC, "img_check.bmp")
+            hWndDC = win32gui.GetWindowDC(self.handle)
+            # device description table
+            mfcDC = win32ui.CreateDCFromHandle(hWndDC)
+            # memory device description table
+            saveDC = mfcDC.CreateCompatibleDC()
+            # create bitmap
+            saveBitMap = win32ui.CreateBitmap()
+            # set storage
+            saveBitMap.CreateCompatibleBitmap(mfcDC, width, height)
+            # set screenshot to storage
+            saveDC.SelectObject(saveBitMap)
+            # save bitmap to memory device description table
+            saveDC.BitBlt((0, 0), (width, height), mfcDC, (0, 0), win32con.SRCCOPY)
+            # save screenshot
+            self.logger.get_log().debug('对窗口截图')
+            saveBitMap.SaveBitmapFile(saveDC, "img_check.bmp")
+            img = cv.imread("img_check.bmp", -1)
+            cv.imwrite("img_check.png", img)
+        else:
+            win32gui.ShowWindow(self.handle, win32con.SW_SHOWNORMAL)
+            win32gui.SetForegroundWindow(self.handle)
+            monitor = {"top": self.bottom, "left": self.left, "width": self.width, "height": self.height}
+            img_array = mss.mss().grab(monitor)
+            mss.tools.to_png(img_array.rgb, img_array.size, output="img_check.png")
         return None
 
     def press_keyboard(self, key, delay_time):
@@ -192,5 +213,5 @@ class Emulator:
 
 
 if __name__ == '__main__':
-    a = Emulator('雷电模拟器', fgo_dict.keyboard_key, fgo_dict.mouse_key, 1)
+    a = Emulator('雷电模拟器', fgo_dict.keyboard_key, fgo_dict.mouse_key, 1, 1)
     a.get_bitmap()
